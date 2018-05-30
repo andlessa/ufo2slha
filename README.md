@@ -1,2 +1,4 @@
 # ufo2slha
-This repository holds the code for producing slha files from UFO files
+This repository holds Juhi code for producing slha files from UFO files
+
+
