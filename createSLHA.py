@@ -303,15 +303,10 @@ def getSLHAFile(parser):
     pars = parser.toDict(raw=False)["slhaCreator"]
     ufoFolder =  parser.get('options','modelFolder')
     modelParticles = getParticlesFromUFO(ufoFolder)
-    pdgDict = [[part.name.lower(),part.pdg_code] for part in modelParticles]
-    pdgDict += [[part.antiname.lower(),-part.pdg_code] for part in modelParticles 
+    finalState2PDG = [[part.name.lower(),part.pdg_code] for part in modelParticles]
+    finalState2PDG += [[part.antiname.lower(),-part.pdg_code] for part in modelParticles 
                 if part.antiname != part.name]
-    pdgDict = dict(pdgDict)
-    finalState2PDG = {}
-    for labelA,labelB in itertools.product(pdgDict.keys(),pdgDict.keys()):
-        mgLabel = labelA.strip()+labelB.strip()
-        mgLabel = mgLabel.replace('+','p').replace('-','m').replace('~','x')
-        finalState2PDG[mgLabel] = sorted([pdgDict[labelA],pdgDict[labelB]])
+    finalState2PDG = dict(finalState2PDG)
     
     slhaFile = pars['slhaout']
     #Create output dirs, if do not exist:
@@ -344,31 +339,33 @@ def getSLHAFile(parser):
     slhaData = slhaData.replace('</slha>','')    
     xsecData = (bannerData[bannerData.find('<MGGenerationInfo>'):bannerData.find('</MGGenerationInfo>')]).split('\n')
     processXsecData = (bannerData[bannerData.find('<init>'):bannerData.find('</init>')]).split('\n')
+    processData = (bannerData[bannerData.find('<MG5ProcCard>'):bannerData.find('</MG5ProcCard>')]).split('\n')
     
     #Get generated processes:
-    subProcessFile = os.path.abspath(parser.get('MadGraphPars','mg5out'))
-    subProcessFile = os.path.join(subProcessFile,'SubProcesses/subproc.mg')
-    if not os.path.isfile(subProcessFile):
-        logger.error("SubProcess information file: %s not found." %subProcessFile)
-        return False
-    subF = open(subProcessFile,'r')
     subProcessDict = {}
-    for l in subF.readlines():
-        l = l.replace('\n','')
-        l = l.split('_')
-        procID = eval(l[0].replace('P',''))
-        finalState = l[-1].strip()
-        if not finalState in finalState2PDG:
-            logger.error("Final state %s not found in model" %finalState)
-            return False
-        if procID in subProcessDict:
-            if not finalState == subProcessDict[procID]:
-                logger.error("Ambiguous definition of processes for final state %s" %finalState)
-                return False
-        else:      
-            subProcessDict[procID] = finalState
-    subF.close()
-
+    nproc = 1
+    for l in processData:
+        if not l or l[0] == '#':
+            continue
+        l = l.strip()
+        if l[:8] == 'generate':
+            l = l[l.find('generate')+8:]
+        elif l[:11] == 'add process':
+            l = l[l.find('add process')+11:]
+        else:
+            continue
+        l = l.strip()
+        finalStates = l.split('>')[1]
+        finalStates = finalStates.split(',')[0]
+        finalStates = finalStates.strip().split()
+        for finalState in finalStates:
+            if not finalState in finalState2PDG:
+                logger.error("Final state %s not found in model" %finalState)
+                return False        
+        #Store the process ID with its final states:        
+        subProcessDict[nproc] = finalStates
+        nproc += 1
+    
     #Get total cross-section,number of events
     xsecTotal = [l.split(':')[1].strip() for l in xsecData if 'Integrated weight (pb)' in l][0]
     xsecTotal = eval(xsecTotal)
@@ -390,14 +387,11 @@ def getSLHAFile(parser):
         xsec,xsecErr,_,procID = vals
         if not procID in subProcessDict:
             logger.error("Process ID %i found in LHE file, but not in subproc.mg" %procID)
-            return False    
-        finalState = subProcessDict[procID]
-        if procID == 558:
-            print(finalState,finalState2PDG[finalState])
-        if not finalState in processXsecs:
-            processXsecs[finalState] = {'xsec (pb)' : 0., 'xsecErr (pb)' : 0.}
-        processXsecs[finalState]['xsec (pb)'] += xsec
-        processXsecs[finalState]['xsecErr (pb)'] += xsecErr
+            return False
+        if not procID in processXsecs:
+            processXsecs[procID] = {'xsec (pb)' : 0., 'xsecErr (pb)' : 0.}
+        processXsecs[procID]['xsec (pb)'] += xsec
+        processXsecs[procID]['xsecErr (pb)'] += xsecErr
 
 
     #Check:
@@ -411,10 +405,11 @@ def getSLHAFile(parser):
     slhaF.write('\n\n')
     processXsecs = OrderedDict(sorted(processXsecs.items(), 
                                       key=lambda proc: proc[1]['xsec (pb)'],reverse=True))
-    for finalState in processXsecs:
-        pdgFinal = finalState2PDG[finalState]
-        xsec = processXsecs[finalState]['xsec (pb)']
-        xsecErr = processXsecs[finalState]['xsecErr (pb)']
+    for procID in processXsecs:
+        finalStates = subProcessDict[procID]
+        pdgFinal = sorted([finalState2PDG[fs] for fs in finalStates])
+        xsec = processXsecs[procID]['xsec (pb)']
+        xsecErr = processXsecs[procID]['xsecErr (pb)']
         comment = "# Nevts: %i xsec unit: pb xsec error: %1.3e" %(nevents,xsecErr)
         xsecLine = "\nXSECTION %1.3e " %(sqrts)
         xsecLine += " ".join([str(pdg) for pdg in pdgInitial])
