@@ -369,8 +369,8 @@ def getSLHAFile(parser):
     #Get total cross-section,number of events
     xsecTotal = [l.split(':')[1].strip() for l in xsecData if 'Integrated weight (pb)' in l][0]
     xsecTotal = eval(xsecTotal)
-    nevents = [l.split(':')[1].strip() for l in xsecData if 'Number of Events' in l][0]
-    nevents = int(eval(nevents))
+    #For computing cross-sections we do not need the events. The accuracy is set by survey (at 1%)
+    nevents = 10
     if xsecTotal <= 0.:
         logger.error("Total cross-section is zero?")
         return False
@@ -526,17 +526,15 @@ if __name__ == "__main__":
             generateProcesses(newParser)
             firstRun = False                   
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling
-        runAll(parserDict)
-        break
-#         p = pool.apply_async(runAll, args=(parserDict,))            
-#         children.append(p)
-#         if len(children) == 1:
-#             time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
-#        
-# #     Wait for jobs to finish:
-#     output = [p.get() for p in children]
-#     for out in output:
-#         print(out)
+        p = pool.apply_async(runAll, args=(parserDict,))            
+        children.append(p)
+        if len(children) == 1:
+            time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
+        
+#     Wait for jobs to finish:
+    output = [p.get() for p in children]
+    for out in output:
+        print(out)
 
     print("\n\nDone in %3.2f min" %((time.time()-t0)/60.))
             
