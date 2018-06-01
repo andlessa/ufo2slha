@@ -153,7 +153,6 @@ def getProcessCard(parser):
     
     return processCard
 
-
 def generateProcesses(parser):
     """
     Runs the madgraph process generation.
@@ -308,6 +307,11 @@ def getSLHAFile(parser):
                 if part.antiname != part.name]
     finalState2PDG = dict(finalState2PDG)
     
+    #Use MadGraph banner reader:
+    madgraphPath = parser.get('MadGraphPars','MG5path')
+    sys.path.append(madgraphPath)
+    from madgraph.various.banner import Banner
+    
     slhaFile = pars['slhaout']
     #Create output dirs, if do not exist:
     try:
@@ -325,26 +329,21 @@ def getSLHAFile(parser):
         f = gzip.open(lheFile, 'r')
     else: 
         f = open(lheFile,'r')
-    fData = f.read()
+    banner = Banner()
+    banner.read_banner(f)
     f.close()
     #Check if input file is MG5 banner or SLHA file
-    if not '<MGGenerationInfo>' in fData:
+    if not 'mggenerationinfo' in banner or not 'mg5proccard' in banner or not 'init' in banner or not 'slha' in banner:
         logger.error("Input file %s does not contain required data " %lheFile)
         return False
        
     #Collect necessary info:
-    bannerData = fData
-    slhaData = bannerData[bannerData.find('<slha>'):bannerData.find('</slha>')]
-    slhaData = slhaData.replace('<slha>','')
-    slhaData = slhaData.replace('</slha>','')    
-    xsecData = (bannerData[bannerData.find('<MGGenerationInfo>'):bannerData.find('</MGGenerationInfo>')]).split('\n')
-    processXsecData = (bannerData[bannerData.find('<init>'):bannerData.find('</init>')]).split('\n')
-    processData = (bannerData[bannerData.find('<MG5ProcCard>'):bannerData.find('</MG5ProcCard>')]).split('\n')
+    slhaData = banner['slha']    
     
     #Get generated processes:
     subProcessDict = {}
     nproc = 1
-    for l in processData:
+    for l in banner['mg5proccard'].split('\n'):
         if not l or l[0] == '#':
             continue
         l = l.strip()
@@ -367,20 +366,17 @@ def getSLHAFile(parser):
         nproc += 1
     
     #Get total cross-section,number of events
-    xsecTotal = [l.split(':')[1].strip() for l in xsecData if 'Integrated weight (pb)' in l][0]
-    xsecTotal = eval(xsecTotal)
-    #For computing cross-sections we do not need the events. The accuracy is set by survey (at 1%)
-    nevents = 10
+    xsecTotal = banner.get_cross()
     if xsecTotal <= 0.:
         logger.error("Total cross-section is zero?")
         return False
     
     #Get sqrts and cross-section for each process:
-    info = processXsecData[1].split()
+    info = banner['init'].split('\n')[0].split()
     sqrts = eval(info[2]) + eval(info[3])
-    pdgInitial = [eval(info[0]),eval(info[1])]
+    pdgInitial = list(banner.get_pdg_beam())
     processXsecs = {}
-    for l in processXsecData[2:]:
+    for l in banner['init'].split('\n')[1:]:
         if not l.strip() or l.strip()[0] == '<':
             continue
         vals = [eval(x) for x in l.split()]
@@ -410,7 +406,7 @@ def getSLHAFile(parser):
         pdgFinal = sorted([finalState2PDG[fs] for fs in finalStates])
         xsec = processXsecs[procID]['xsec (pb)']
         xsecErr = processXsecs[procID]['xsecErr (pb)']
-        comment = "# Nevts: %i xsec unit: pb xsec error: %1.3e" %(nevents,xsecErr)
+        comment = "# xsec unit: pb xsec error: %1.3e" %(xsecErr)
         xsecLine = "\nXSECTION %1.3e " %(sqrts)
         xsecLine += " ".join([str(pdg) for pdg in pdgInitial])
         xsecLine += " %i " %len(pdgFinal)
@@ -528,8 +524,6 @@ if __name__ == "__main__":
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling
         p = pool.apply_async(runAll, args=(parserDict,))            
         children.append(p)
-        if len(children) == 1:
-            time.sleep(15)  #Let first job run for 15s in case it needs to create shared folders
         
 #     Wait for jobs to finish:
     output = [p.get() for p in children]
