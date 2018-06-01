@@ -394,145 +394,142 @@ DECAY  8880028   0.000000e+00
 
 
 XSECTION 1.3E+04 2212 2212 2 8880024 -8880024 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.00678875903308 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.00678875903308 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880022 8880022 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 1.8446398338e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 1.8446398338e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880023 8880023 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000862210864207 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000862210864207 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880023 8880022 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000275947878301 # for Littlest Higgs Model with T Parity
-
-XSECTION 1.3E+04 2212 2212 2 8880023 8880022 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000275947878301 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000275947878301 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880023 8880024 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0079613042 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0079613042 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880023 -8880024 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0028564396 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0028564396 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880024 8880022 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000436473772 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000436473772 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880024 8880022 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000165788691 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000165788691 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880008 -8880008 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0026813938 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0026813938 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880007 -8880007 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.03421838 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.03421838 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 8880002 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.02262264 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.02262264 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880001 8880001 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.00301300398453 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.00301300398453 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880004 8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 6.1458e-06 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 6.1458e-06 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880003 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 4.088324e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 4.088324e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880002 -8880002 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 2.382383e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 2.382383e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880001 -8880001 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 2.989696328e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 2.989696328e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880004 -8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 6.1458e-06 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 6.1458e-06 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880003 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 1.28702297e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 1.28702297e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 -8880001 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.001179916944 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.001179916944 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880002 8880001 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000338966473 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000338966473 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 -8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0005312824 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0005312824 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880002 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 2.746424e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 2.746424e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 -8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.00182924022 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.00182924022 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880002 8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.00021053659 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.00021053659 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880001 -8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000129169493 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000129169493 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880001 8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000129169493 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000129169493 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880001 -8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0024004319257 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0024004319257 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 -8880001 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000113857437 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000113857437 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 8880001 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.04824355343 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.04824355343 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000804642 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000804642 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880002 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0018157858 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0018157858 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880001 8880004 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.005644649929 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.005644649929 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880001 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.000656458521 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.000656458521 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880004 8880003 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 9.301995e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 9.301995e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880011 -8880011 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 3.289317e-06 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 3.289317e-06 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880013 -8880013 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 3.289317e-06 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 3.289317e-06 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880015 -8880015 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 3.289317e-06 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 3.289317e-06 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880012 -8880012 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 1.1206188e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 1.1206188e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880014 -8880014 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 1.1206188e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 1.1206188e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880016 -8880016 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 1.1206188e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 1.1206188e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880005 -8880005 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0025094423 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0025094423 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880025 8880025 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 4.32202743e-11 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 4.32202743e-11 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880025 8880027 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.00013964406 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.00013964406 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880025 -8880027 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 4.9679e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 4.9679e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880027 -8880027 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 2.23940150306e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 2.23940150306e-05 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880026 8880025 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 0.0001897283 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 0.0001897283 # for Littlest Higgs Model with T Parity
 
 XSECTION 1.3E+04 2212 2212 2 8880026 8880027 # 10000 events, [pb], MG5 for LO 
-0 0 0 0 0 0 4.9679e-05 # for Littlest Higgs Model with T Parity
+  0 0 0 0 0 0 4.9679e-05 # for Littlest Higgs Model with T Parity
