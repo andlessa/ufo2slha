@@ -15,7 +15,6 @@ class ConfigParserExt(SafeConfigParser):
         self._interpolation = ExtendedInterpolation()
         self.optionxform = str
 
-
     def toDict(self,raw=True):
         """
         Convert parser to dictionary.
@@ -76,6 +75,16 @@ class ConfigParserExt(SafeConfigParser):
         
         return str(self.get(*args,**kargs))
         
+
+    def getvalue(self,*args,**kargs):
+        
+        val = self.get(*args,**kargs)
+        try:
+            val = eval(val)
+        except:
+            pass
+        
+        return val
 
 
 
