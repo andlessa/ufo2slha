@@ -412,7 +412,7 @@ def getSLHAFile(parser):
         xsecLine += " %i " %len(pdgFinal)
         xsecLine += " ".join([str(pdg) for pdg in pdgFinal])
         slhaF.write(xsecLine+' '+comment+' \n')        
-        slhaF.write("  0  0  0  0  0  0  %1.4e slhaFromLHE 1.0\n" %xsec)    
+        slhaF.write("  0  0  0  0  0  0  %1.4e ufo2slha 1.0\n" %xsec)    
     slhaF.close()
     
     logger.info("Finished SLHA creation")
