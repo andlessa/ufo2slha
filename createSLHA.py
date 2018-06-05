@@ -46,38 +46,46 @@ def getParticlesFromUFO(ufoFolder):
     
     return allParticles
 
+
 def getProcessString(finalStates,initialStates = ['p','p']):
     """
-    Generate a process string (e.g. p p > Z Z) given
+    Generate a process string (e.g. p p > finalStates) given
     the list of final and initial states.
     
-    :param finalStates: list of final state strings (e.g. ['Z', 'Z'])
+    :param finalStates: list of final state strings or PDGs (e.g. ['Z', 'Z'] or [23,23)
     :param initialStates: list of final state strings (e.g. ['p', 'p'])
     
-    :return: Process string (e.g. p p > Z Z)
+    :return: Process string (e.g. p p > Z Z or p p > 23 23)
     """
     
-    pStr = ' '.join(initialStates) + ' > ' + ' '.join(finalStates)
-    
+    pStr = ' '.join(initialStates) + ' > ' + ' '.join([str(fs) for fs in finalStates])    
     return pStr
 
 def defineProcesses(xsecPDGList,ufoFolder,initialStates=['p','p']):
     """
     Given a list of PDGs, generates all process strings with pair of final
-    states including these particles. Automatically includes the charge conjugation processes.
+    states including these particles. Automatically includes the charge conjugation particles,
+    if the anti-particle exists in the model.
     
-    :param xsecPDGList: list of PDGs of final states particles (e.g. [25,23])
+    :param xsecPDGList: list of PDGs of final states particles (e.g. [PDG1,PDG2,...])
     :param ufoFolder: path to the UFO folder.
     
-    :return: list of process strings (e.g. ['p p > h h', 'p p > z h', 'p p > z z']) 
+    :return: list of process strings (e.g. ['p p > PDG1 PDG1', 'p p > PDG1 -PDG1', 'p p > -PDG1 -PDG1', 'p p > PDG1 PDG2',...]) 
     """
     
-    modelParticles = getParticlesFromUFO(ufoFolder)
+    #First collect all PDGs appearing in the model (including anti-particles):
+    particles = getParticlesFromUFO(ufoFolder)
+    modelPDGs = [particle.pdg_code for particle in particles]
+    modelPDGs += [-particle.pdg_code for particle in particles if particle.name != particle.antiname]
+    #Now select the subset (including anti-particles) of PDGs defined in input:
     finalStates = []
-    for part in modelParticles:
-        if part.pdg_code in xsecPDGList or abs(part.pdg_code) in xsecPDGList:
-            finalStates.append(part.name.lower())
-            finalStates.append(part.antiname.lower())
+    for pdg in xsecPDGList:
+        if pdg in modelPDGs:
+            finalStates.append(pdg)
+        if -pdg in modelPDGs:
+            finalStates.append(-pdg)
+        if (not pdg in modelPDGs) and (not -pdg in modelPDGs):
+            logger.info('Particle PDG %i not found in model and will be ignored.' %pdg)            
     finalStates = list(set(finalStates))
     twoBodyFS = itertools.product(finalStates,finalStates)
     processes = []
@@ -143,8 +151,8 @@ def getProcessCard(parser):
     xsecPDGList = parser.getvalue('options','computeXsecsFor')
     ufoFolder =  parser.getstr('options','modelFolder')
     processes = defineProcesses(xsecPDGList, ufoFolder)
-    for proc in processes:
-        processCardF.write('add process %s \n' %proc)
+    for iproc,proc in enumerate(processes):
+        processCardF.write('add process %s @ %i \n' %(proc,iproc))
     
     l = 'output %s\n' %os.path.abspath(pars['processFolder'])
     processCardF.write(l)
@@ -300,12 +308,6 @@ def getSLHAFile(parser):
     """
     
     pars = parser.toDict(raw=False)["slhaCreator"]
-    ufoFolder =  parser.get('options','modelFolder')
-    modelParticles = getParticlesFromUFO(ufoFolder)
-    finalState2PDG = [[part.name.lower(),part.pdg_code] for part in modelParticles]
-    finalState2PDG += [[part.antiname.lower(),-part.pdg_code] for part in modelParticles 
-                if part.antiname != part.name]
-    finalState2PDG = dict(finalState2PDG)
     
     #Use MadGraph banner reader:
     madgraphPath = parser.get('MadGraphPars','MG5path')
@@ -341,8 +343,7 @@ def getSLHAFile(parser):
     slhaData = banner['slha']    
     
     #Get generated processes:
-    subProcessDict = {}
-    nproc = 1
+    finalStatesDict = {}
     for l in banner['mg5proccard'].split('\n'):
         if not l or l[0] == '#':
             continue
@@ -354,16 +355,17 @@ def getSLHAFile(parser):
         else:
             continue
         l = l.strip()
-        finalStates = l.split('>')[1]
+        #Get final states and process ID
+        finalStates,iproc = l.split('>')[1].split('@')
         finalStates = finalStates.split(',')[0]
         finalStates = finalStates.strip().split()
-        for finalState in finalStates:
-            if not finalState in finalState2PDG:
-                logger.error("Final state %s not found in model" %finalState)
-                return False        
-        #Store the process ID with its final states:        
-        subProcessDict[nproc] = finalStates
-        nproc += 1
+        iproc = eval(iproc)
+        #Store the process ID with its final states:
+        if not iproc in finalStatesDict:        
+            finalStatesDict[iproc] = finalStates
+        else:
+            logger.error("Error reading processes. Process ID %i appears more than once." %iproc)
+            return False
     
     #Get total cross-section,number of events
     xsecTotal = banner.get_cross()
@@ -381,13 +383,14 @@ def getSLHAFile(parser):
             continue
         vals = [eval(x) for x in l.split()]
         xsec,xsecErr,_,procID = vals
-        if not procID in subProcessDict:
-            logger.error("Process ID %i found in LHE file, but not in subproc.mg" %procID)
+        if not procID in finalStatesDict:
+            logger.error("Process ID %i found in LHE file" %procID)
             return False
         if not procID in processXsecs:
-            processXsecs[procID] = {'xsec (pb)' : 0., 'xsecErr (pb)' : 0.}
-        processXsecs[procID]['xsec (pb)'] += xsec
-        processXsecs[procID]['xsecErr (pb)'] += xsecErr
+            processXsecs[procID] = {'xsec (pb)' : xsec, 'xsecErr (pb)' : xsecErr}
+        else:
+            logger.error("Error reading subprocess cross-sections. The process ID = %i appears multiple times" %procID)
+            return False
 
 
     #Check:
@@ -402,17 +405,16 @@ def getSLHAFile(parser):
     processXsecs = OrderedDict(sorted(processXsecs.items(), 
                                       key=lambda proc: proc[1]['xsec (pb)'],reverse=True))
     for procID in processXsecs:
-        finalStates = subProcessDict[procID]
-        pdgFinal = sorted([finalState2PDG[fs] for fs in finalStates])
+        finalStates = finalStatesDict[procID]
         xsec = processXsecs[procID]['xsec (pb)']
         xsecErr = processXsecs[procID]['xsecErr (pb)']
         comment = "# xsec unit: pb xsec error: %1.3e" %(xsecErr)
         xsecLine = "\nXSECTION %1.3e " %(sqrts)
         xsecLine += " ".join([str(pdg) for pdg in pdgInitial])
-        xsecLine += " %i " %len(pdgFinal)
-        xsecLine += " ".join([str(pdg) for pdg in pdgFinal])
+        xsecLine += " %i " %len(finalStates)
+        xsecLine += " ".join([str(pdg) for pdg in finalStates])
         slhaF.write(xsecLine+' '+comment+' \n')        
-        slhaF.write("  0  0  0  0  0  0  %1.4e slhaFromLHE 1.0\n" %xsec)    
+        slhaF.write("  0  0  0  0  0  0  %1.4e ufo2slha 1.0\n" %xsec)    
     slhaF.close()
     
     logger.info("Finished SLHA creation")
