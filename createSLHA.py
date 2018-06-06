@@ -236,14 +236,24 @@ def generateEvents(parser):
     for key,val in comms.items():
         commandsFileF.write('set %s %s\n' %(key,val))
 
+    #Make sure the parameter card is updated:
+    commandsFileF.write('update to_full\n')
+
+
     if parser.has_option('options','computeWidths'):
-        computeWidths = parser.getstr('options','computeWidths')
+        computeWidths = parser.getvalue('options','computeWidths')
         if computeWidths:
             if isinstance(computeWidths,str):
                 commandsFileF.write('compute_widths %s\n' %computeWidths)
             else:
                 commandsFileF.write('compute_widths all \n')
+
+    #Force madgraph to use the updated param_card:
+    paramCard = os.path.abspath(os.path.join(outputFolder,'Cards/param_card.dat'))
+    commandsFileF.write(paramCard+' \n')
+    #Done setting up options
     commandsFileF.write('done\n')
+
     commandsFileF.close()
     commandsFile = commandsFile[1]      
     

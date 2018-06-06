@@ -16,6 +16,7 @@ if echo "$answer" | grep -iq "^y" ;then
 	echo "[installer] replacing MadGraph files with fixes";
     cp ./madgraphFixes/mg5_configuration.txt MG5/input/;
     cp ./madgraphFixes/madgraph_interface.py MG5/madgraph/interface/;
+    cp ./madgraphFixes/common_run_interface.py MG5/madgraph/interface/;
     cp ./madgraphFixes/diagram_generation.py MG5/madgraph/core/;
 fi
 
