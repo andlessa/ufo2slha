@@ -233,6 +233,9 @@ def generateEvents(parser):
         commandsFileF.write('%s=%s\n' %(key,val))
     commandsFileF.write('done\n')
     comms = parser.toDict(raw=False)["MadGraphSet"]
+    #Set a low number of events, since it does not affect the total cross-section value
+    #(can be overridden by the user, if the user defines a different number in the input card)
+    commandsFileF.write('set nevents 10 \n') 
     for key,val in comms.items():
         commandsFileF.write('set %s %s\n' %(key,val))
 
