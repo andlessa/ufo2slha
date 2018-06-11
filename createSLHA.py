@@ -243,8 +243,8 @@ def generateEvents(parser):
     if parser.has_option('options','computeWidths'):
         computeWidths = parser.getvalue('options','computeWidths')
         if computeWidths:
-            if isinstance(computeWidths,str):
-                commandsFileF.write('compute_widths %s\n' %computeWidths)
+            if isinstance(computeWidths,str) or isinstance(computeWidths,unicode):
+                commandsFileF.write('compute_widths %s\n' %str(computeWidths))
             else:
                 commandsFileF.write('compute_widths all \n')
 
