@@ -147,9 +147,9 @@ def getProcessCard(parser):
     processCardF = open(processCard,'w')
     processCardF.write('import model sm \n')
     processCardF.write('define p = g u c d s u~ c~ d~ s~ \n')
-    processCardF.write('import model %s \n' %os.path.abspath(parser.getstr('options','modelFolder')))     
+    processCardF.write('import model %s \n' %os.path.abspath(parser.getvalue('options','modelFolder')))     
     xsecPDGList = parser.getvalue('options','computeXsecsFor')
-    ufoFolder =  parser.getstr('options','modelFolder')
+    ufoFolder =  parser.getvalue('options','modelFolder')
     processes = defineProcesses(xsecPDGList, ufoFolder)
     for iproc,proc in enumerate(processes):
         processCardF.write('add process %s @ %i \n' %(proc,iproc))
@@ -205,7 +205,7 @@ def generateEvents(parser):
     """
     
     pars = parser.toDict(raw=False)["MadGraphPars"]
-    ncpu = max(1,parser.getint("MadGraphPars","ncores"))
+    ncpu = max(1,parser.getvalue("MadGraphPars","ncores"))
     
     processFolder = pars['processFolder']
     outputFolder = pars['mg5out']
@@ -228,9 +228,6 @@ def generateEvents(parser):
     commandsFile = tempfile.mkstemp(suffix='.txt', prefix='MG5_commands_', dir=outputFolder)
     os.close(commandsFile[0])
     commandsFileF = open(commandsFile[1],'w')
-    comms = parser.toDict(raw=False)["MadGraphOptions"]
-    for key,val in comms.items():
-        commandsFileF.write('%s=%s\n' %(key,val))
     commandsFileF.write('done\n')
     comms = parser.toDict(raw=False)["MadGraphSet"]
     #Set a low number of events, since it does not affect the total cross-section value
@@ -317,7 +314,7 @@ def getSLHAFile(parser):
     pars = parser.toDict(raw=False)["slhaCreator"]
     
     #Use MadGraph banner reader:
-    madgraphPath = parser.get('MadGraphPars','MG5path')
+    madgraphPath = parser.getvalue('MadGraphPars','MG5path')
     sys.path.append(madgraphPath)
     from madgraph.various.banner import Banner
     
@@ -328,7 +325,7 @@ def getSLHAFile(parser):
     except:
         pass
     
-    lheFile = parser.get('slhaCreator','inputFile')
+    lheFile = parser.getvalue('slhaCreator','inputFile')
     
     if not os.path.isfile(lheFile):
         logger.error("File %s not found" %lheFile)
@@ -438,7 +435,7 @@ def runAll(parserDict):
     t0 = time.time() 
     
     parser = ConfigParserExt()
-    parser.read_dict(parserDict)    
+    parser.read_dict(parserDict)  
     
     #Run MadGraph
     if parser.getboolean('options','runMG'):
@@ -446,7 +443,7 @@ def runAll(parserDict):
 
     #Create SLHA file
     if parser.getboolean("options","runSlhaCreator"):
-        inputFile = parser.getstr("slhaCreator","inputFile")
+        inputFile = parser.getvalue("slhaCreator","inputFile")
         if not os.path.isfile(inputFile):
             logger.error("Input file %s for SLHA creator not found" %inputFile)
         else:
@@ -459,8 +456,8 @@ def runAll(parserDict):
     #Clean output:
     if parser.getboolean("options","cleanOutFolders"):
         logger.info("Cleaning output")
-        if os.path.isdir(parser.getstr("MadGraphPars","mg5out")):
-            shutil.rmtree(parser.getstr("MadGraphPars","mg5out"))
+        if os.path.isdir(parser.getvalue("MadGraphPars","mg5out")):
+            shutil.rmtree(parser.getvalue("MadGraphPars","mg5out"))
           
     logger.info("Done in %3.2f min" %((time.time()-t0)/60.))
     now = datetime.datetime.now()
@@ -528,7 +525,7 @@ if __name__ == "__main__":
                 if loopVars[i] in newParser.options(section):        
                     newParser.set(section,loopVars[i],str(v))
         if firstRun and newParser.getboolean('options','runMG'):
-            if not os.path.isdir(newParser.get('MadGraphPars','processFolder')):
+            if not os.path.isdir(newParser.getvalue('MadGraphPars','processFolder')):
                 generateProcesses(newParser)
                 firstRun = False
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling

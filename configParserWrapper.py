@@ -6,6 +6,7 @@
 
 from configparser import SafeConfigParser,ExtendedInterpolation
 from math import *
+import glob
 
 
 class ConfigParserExt(SafeConfigParser):
@@ -27,7 +28,7 @@ class ConfigParserExt(SafeConfigParser):
         for s in self.sections():
             parserDict[s] = {}
             for var in self.options(s):
-                parserDict[s][var] = self.get(s,var,raw=raw)
+                parserDict[s][var] = self.getvalue(s,var,raw=raw)
         
         return parserDict
         
@@ -47,30 +48,7 @@ class ConfigParserExt(SafeConfigParser):
             kargs['raw'] = True
             #Get raw expression:
             val = super(SafeConfigParser, self).get(*args,**kargs)            
-            expr = val[:]
-            
-            maxrecursion = 100*len(self.sections())
-            irec = 0
-            while "${" in expr and irec < maxrecursion:
-                irec += 1
-                exprBlock = expr[expr.find("${")+2:expr.find("}",expr.find("${"))]
-                exprNew = exprBlock[:]
-                #Get values for variables appearing in exprBlock
-                for s in self.sections():
-                    for var in self.options(s):
-                        varName = "%s:%s" %(s,var)
-                        if varName in exprNew:
-                            exprNew = exprNew.replace(varName,str(self.get(s,var)))
-                try:
-                    v = eval(exprNew)                    
-                except:
-                    v = exprNew
-                expr = expr.replace("${"+exprBlock+"}",str(v)) 
-            
-            if irec == maxrecursion:
-                print("ERROR:::Could not evaluate expression: %s \nAre expression defined recursively?" %val)
-            
-            return expr
+            return val
         
     def getstr(self,*args,**kargs):
         
