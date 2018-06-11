@@ -5,6 +5,7 @@
 #References for other parameters in the parser should be in the format section:parameter.
 
 from configparser import SafeConfigParser,ExtendedInterpolation
+from math import *
 
 
 class ConfigParserExt(SafeConfigParser):
