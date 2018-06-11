@@ -528,8 +528,9 @@ if __name__ == "__main__":
                 if loopVars[i] in newParser.options(section):        
                     newParser.set(section,loopVars[i],str(v))
         if firstRun and newParser.getboolean('options','runMG'):
-            generateProcesses(newParser)
-            firstRun = False                   
+            if not os.path.isdir(newParser.get('MadGraphPars','processFolder')):
+                generateProcesses(newParser)
+                firstRun = False
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling
         p = pool.apply_async(runAll, args=(parserDict,))            
         children.append(p)
