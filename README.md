@@ -10,7 +10,7 @@ The following external codes are required:
 The script installer.sh will try to fetch the appropriate tarballs and try to install them.
 A few patches will be automatically applied to the MadGraph installation in order to allow for the automatized computation
 of cross-sections. *Therefore we do not recommend to use an external MadGraph installation.*
-The modified files can be found in [madgraphFixes](madgraphFixes).
+The patched files can be found in [madgraphFixes](madgraphFixes).
 
 
 ### Generating SLHA files ###
@@ -21,8 +21,18 @@ obtained running:
 ``
 ./createSLHA.py -p <parameter file>
 `` 
+
 The parameter file specificies several options for computing the cross-sections and the decays.
 An example with comments can be found in [slha_parameters.ini](slha_parameters.ini).
+Note that generating SLHA files for several model parameters can be automatically
+done by defining the corresponding parameters as a list of values. Also, dependence between the parameters
+are easily implemented using the parameter variable syntax (see comments in [slha_parameters.ini](slha_parameters.ini)).
+
+Note that the automatic computation of cross-sections for all possible
+cross-section channels may demand a lot of CPU time. Therefore we recommend the user
+to judisciously choose which particles to compute cross-sections for and, if needed,
+explicitly specify the required processes through the use of the process
+card (see comments in [slha_parameters.ini](slha_parameters.ini)).
 
 #### SLHA creation Steps ####
 
@@ -34,7 +44,9 @@ The creation of an SLHA file from the UFO input is done according to the followi
      (defined by processFolder in [slha_parameters.ini](slha_parameters.ini)). If the process folder
      already exists, the process generation will be skipped.
   2. Once the information about the processes are stored in the process folder (see above), this folder will be copied
-     to the madgraph output folder (see mg5out in [slha_parameters.ini](slha_parameters.ini)).
+     to the madgraph output folder (see mg5out in [slha_parameters.ini](slha_parameters.ini)). When creating several SLHA
+     files in parallel, it is important to assign one distinct mg5out folder for each SLHA file (if cleanOutFolders = True, these
+     folders will be automatically removed at the end of the run).
   3. Events will then be generated using the parameters set by the "MadGraphSet" section in  [slha_parameters.ini](slha_parameters.ini)
      and the run and parameter cards defined by the runcard and paramcard options. If these are not defined or the files
      do not exist, the default files will be used.
@@ -42,6 +54,6 @@ The creation of an SLHA file from the UFO input is done according to the followi
      in  [slha_parameters.ini](slha_parameters.ini)) will be read and used to extract the cross-sections and the other SLHA blocks, which will then
      be written to the output slha file (defined by the ''slhaout'' option in the "slhaCreator" section 
      in  [slha_parameters.ini](slha_parameters.ini))
-  5. If cleanOutFolders = True, the madgraph output folder will be deleted.
+  5. If cleanOutFolders = True, the madgraph output folder(s) will be deleted.
 
 
