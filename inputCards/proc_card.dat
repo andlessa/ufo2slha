@@ -30,4 +30,4 @@ define vl~ = ve~ vm~ vt~
 import model /home/lessa/ufo2slha/UFO_LittleHiggs
 done
 generate p p > zh zh
-output /home/lessa/ufo2slha/outputDir/MG5_output/test 
+output /home/lessa/ufo2slha/outputDir/MG5_output/proc-littleHiggs
