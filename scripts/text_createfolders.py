@@ -174,40 +174,8 @@ generate p p > sh wh+
 output shwhp_sample1
 generate p p > ah bh
 output ahbh_sample1
-generate p p > ah uh
-output ahuh_sample1
-generate p p > ah dh
-output ahdh_sample1
-generate p p > ah ch
-output ahch_sample1
-generate p p > ah sh
-output ahsh_sample1
 generate p p > ah bh~
 output ahbhb_sample1
-generate p p > ah uh~
-output ahuhb_sample1
-generate p p > ah dh~
-output ahdhb_sample1
-generate p p > ah ch~
-output ahchb_sample1
-generate p p > ah sh~
-output ahshb_sample1
-generate p p > uh wh-
-output uhwhm_sample1
-generate p p > uh~ wh+
-output uhbwhp_sample1
-generate p p > ch wh-
-output chwhm_sample1
-generate p p > ch~ wh+
-output chbwhp_sample1
-generate p p > dh wh+
-output dhwhp_sample1
-generate p p > dh~ wh-
-output dhbwhm_sample1
-generate p p > sh wh+
-output shwhp_sample1
-generate p p > sh~ wh-
-output shbwhm_sample1
 generate p p > th wh- 
 output thwhm_sample1
 generate p p > th~ wh+ 

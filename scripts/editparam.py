@@ -3,7 +3,7 @@ import os, sys
 import math
 #replace in param card.dat
 file1=open("/home/recapp/Downloads/MG5_aMC_v2_6_2/param_card.dat.tpl","r+")
-file2=open("/home/recapp/Downloads/MG5_aMC_v2_6_2/param_card_1_25.dat","w+")
+file2=open("/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/param_card.dat","w+")
 #print file
 oldMHd=0.0
 oldMHu=0.0
@@ -33,28 +33,29 @@ newlep=0.0
 g=0.663663
 v=246.0
 gprime=0.355435
-#mtop=173.2
 mtop=172.5
 mhiggs=125.6
-# scan over f and set mass parameters
+# get scan input of k, f and set mass parameters
+f2=open('f.txt','r')
+k2=open('k.txt','r')
+f=float(f2.read())
+print f
+k=float(k2.read())
+print k
 #provide the input such that it just replaces the param card.dat 
-
-for f in range (1275,1300,25):
-    
-    oldAH=(gprime*f*(1-(5.0*(v*1.0/f)**2)/8.0))/math.sqrt(5.0)
-    oldWH=(g*f*(1-(1.0*(v*1.0/f)**2)/8.0))
-    oldZH=oldWH
-    oldMHu=math.sqrt(2.0)*k*f*(1-(1.0*(v*1.0/f)**2)/8.0)
-    oldMHd=math.sqrt(2.0)*k*f
-    oldMHl=math.sqrt(2.0)*k*f
-    oldTHodd=(mtop*f*math.sqrt(2.0))/(v*1.0)
-    oldTHeven=oldTHodd*math.sqrt(2.0)
-    oldphi0=(1.0*math.sqrt(2.0)*f*125.6)/(246.0 +(246.0*246.0*246.0)/(12*f*f))  
-    oldphip=oldphi0
-    oldphic=oldphic
-    oldphiCc=oldphiCc
-    oldlep=oldMHd
-
+oldAH=(gprime*f*(1-(5.0*(v*1.0/f)**2)/8.0))/math.sqrt(5.0)
+oldWH = (g*f*(1-(1.0*(v*1.0/f)**2)/8.0))
+oldZH = (g*f*(1-(1.0*(v*1.0/f)**2)/8.0))
+oldMHu=math.sqrt(2.0)*k*f*(1-(1.0*(v*1.0/f)**2)/8.0)
+oldMHd=math.sqrt(2.0)*k*f
+oldMHl=math.sqrt(2.0)*k*f
+oldTHodd=(mtop*f*math.sqrt(2.0))/(v*1.0)
+oldTHeven=oldTHodd*math.sqrt(2.0)
+oldphi0=(1.0*math.sqrt(2.0)*f*mhiggs)/(v +(v*v*v)/(12*f*f))  
+oldphip=oldphi0
+oldphic=oldphi0
+oldphiCc=oldphi0
+oldlep=oldMHd
 params=["oldf","oldlep","oldkf","oldkl","oldMHu","oldMHd","oldMHu","oldMHc","oldMHs","oldMHt","oldMHb","oldTHodd","oldTHeven","oldAH",
 "oldWH","oldZH","oldphi0","oldphip","oldphic","oldphiCc"]
 #replacing numbers in the param card

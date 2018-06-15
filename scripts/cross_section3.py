@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import gzip
+import shutil
 pids={'dh':8880001,'dh~':-8880001,'uh':8880002,'uh~':-8880002,'sh':8880003,'sh~':-8880003,'ch':8880004,'ch~':-8880004,
 'bh':8880005,'bh~':-8880005,'th':8880006,'th~':-8880006,'thodd':8880007,'thodd~':-8880007,'eh-':8880011,'eh+':-8880011,
 'veh':8880012,'veh~':-8880012,'muh-':8880013,'vmh':8880014,'muh+':-8880013,'vmh~':-8880014,'tah-':8880015,'vth':8880016,'tah+':-8880015,'vth~':-8880016,'ah':8880022,'zh':8880023,'wh+':8880024,'wh-':-8880024,'phi0':8880025,'phip':8880027,'phim':-8880027,'phips':8880026, 'theven':8880008,'theven~':-8880008}
@@ -44,6 +45,7 @@ process=['WHWH_sample1','ahah_sample1','zhzh_sample1',
 'phipzh_sample1','phipah_sample1','phipwhm_sample1',
 'phimzh_sample1','phimah_sample1','phimwhp_sample1',
 'phipszh_sample1','phipsah_sample1','phipswhp_sample1','phipswhm_sample1','thethe_sample1','phipsphips_sample1'] 
+
 pid1=[pids['wh-'],pids['ah'],pids['zh'],
 pids['ah'],pids['zh'],pids['wh-'],
 pids['ah'],pids['wh-'],pids['thodd~'],
@@ -133,15 +135,16 @@ print len(pid1)
 print len(pid2)
 
 a=0
-file2=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/thotho_sample1/Cards/param_card.dat','a')
+file2=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/thethe_sample1/Cards/param_card.dat','a')
+
 #print len(process)
 nevents=0
 cross_section=0
 zerocs=0
-file3=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/NewCS8.dat','a')
+file3=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/NewCS.dat','a')
 for a in range (0,len(process),1):
     #file=gzip.open('/home/recapp/Downloads/MG5_aMC_v2_6_2/'+str(process[a])+'/Events/run_01/unweighted_events.lhe.gz','r')
-    file=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/'+str(process[a])+'/Events/run_01/run_01_tag_1_banner.txt','r')
+    file=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/'+str(process[a])+'/Events/run_01/run_01_tag_1_banner.txt','r')
     #if not os.path.isfile(file):file.split("\n"), 
           # continue   
     #if a==40 or a==41:
@@ -160,4 +163,15 @@ for a in range (0,len(process),1):
         
         else: 
             continue
-      
+
+import os 
+ff=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/f.txt','r')
+f=ff.read().split("\n")[0]
+kk=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/k.txt','r')
+k=kk.read().split("\n")[0]
+source=os.listdir("/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/thethe_sample1/Cards/param_card.dat")
+destination="/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/slha/"
+destination=os.path.join(destination,'LHT%s%s.slha'%(f,k))
+shutil.copy(source,destination)
+for path in glob.glob("/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/*sample1/Events/*"):
+    shutil.rmtree(path)
