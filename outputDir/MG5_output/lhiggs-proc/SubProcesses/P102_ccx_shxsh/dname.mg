@@ -1,0 +1,1 @@
+DIRNAME=P102_ccx_shxsh

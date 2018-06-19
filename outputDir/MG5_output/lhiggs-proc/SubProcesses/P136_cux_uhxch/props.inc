@@ -1,0 +1,6 @@
+      PRMASS(-1,1)  = ABS(MDL_MAH)
+      PRWIDTH(-1,1) = ZERO
+      POW(-1,1) = 2
+      PRMASS(-1,2)  = ABS(MDL_MZH)
+      PRWIDTH(-1,2) = ABS(MDL_WZH)
+      POW(-1,2) = 2
