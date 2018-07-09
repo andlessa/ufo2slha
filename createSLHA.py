@@ -465,23 +465,9 @@ def runAll(parserDict):
     return "Finished run at %s" %(now.strftime("%Y-%m-%d %H:%M"))
 
 
-
-if __name__ == "__main__":
-
-    import argparse    
-    ap = argparse.ArgumentParser( description=
-            "Run MadGraph and Pythia in order to compute efficiencies for a given model." )
-    ap.add_argument('-p', '--parfile', default='slha_parameters.ini',
-            help='path to the parameters file. Parameters not defined in the parfile will be read from eff_parameters_default.ini')
-    ap.add_argument('-v', '--loglevel', default='error',
-            help='verbose level (debug, info, warning or error). Default is error')
-
-
-    t0 = time.time()
-
-    args = ap.parse_args()
-    
-    level = args.loglevel.lower()
+def main(parfile,verbose):
+   
+    level = verbose
     levels = { "debug": logging.DEBUG, "info": logging.INFO,
                "warn": logging.WARNING,
                "warning": logging.WARNING, "error": logging.ERROR }
@@ -491,7 +477,7 @@ if __name__ == "__main__":
     logger.setLevel(level = levels[level])    
 
     parser = ConfigParserExt( inline_comment_prefixes=( ';', ) )   
-    ret = parser.read(args.parfile)
+    ret = parser.read(parfile)
     if ret == []:
         logger.error( "No such file or directory: '%s'" % args.parfile)
         sys.exit()
@@ -534,8 +520,25 @@ if __name__ == "__main__":
         
 #     Wait for jobs to finish:
     output = [p.get() for p in children]
-    for out in output:
-        print(out)
+    return output
 
-    print("\n\nDone in %3.2f min" %((time.time()-t0)/60.))
+    
+
+
+if __name__ == "__main__":
+    
+    import argparse    
+    ap = argparse.ArgumentParser( description=
+            "Run MadGraph and Pythia in order to compute efficiencies for a given model." )
+    ap.add_argument('-p', '--parfile', default='slha_parameters.ini',
+            help='path to the parameters file. Parameters not defined in the parfile will be read from eff_parameters_default.ini')
+    ap.add_argument('-v', '--loglevel', default='error',
+            help='verbose level (debug, info, warning or error). Default is error')
+
+
+    t0 = time.time()
+
+    args = ap.parse_args()
+    output = main(args.parfile,args.verbose)
             
+    print("\n\nDone in %3.2f min" %((time.time()-t0)/60.))
