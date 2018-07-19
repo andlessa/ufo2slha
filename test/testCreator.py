@@ -137,7 +137,7 @@ class CreatorTest(unittest.TestCase):
         
         defaultFiles = ['lhiggs_F1000_13.slha',  'lhiggs_F500_13.slha']
         
-        for f in outFiles:        
+        for f in outFiles:
             self.assertTrue(os.path.isfile(f))
             
         
