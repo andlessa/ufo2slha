@@ -1,1 +1,0 @@
-DIRNAME=P477_ddx_phi0phip

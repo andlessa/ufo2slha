@@ -1,1 +1,0 @@
-DIRNAME=P166_scx_chxbh

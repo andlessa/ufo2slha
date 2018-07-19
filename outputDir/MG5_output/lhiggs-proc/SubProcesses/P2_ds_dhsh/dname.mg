@@ -1,1 +1,0 @@
-DIRNAME=P2_ds_dhsh

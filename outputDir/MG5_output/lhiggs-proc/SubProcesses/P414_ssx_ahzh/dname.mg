@@ -1,1 +1,0 @@
-DIRNAME=P414_ssx_ahzh

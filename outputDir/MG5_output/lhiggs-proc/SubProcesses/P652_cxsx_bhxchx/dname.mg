@@ -1,1 +1,0 @@
-DIRNAME=P652_cxsx_bhxchx

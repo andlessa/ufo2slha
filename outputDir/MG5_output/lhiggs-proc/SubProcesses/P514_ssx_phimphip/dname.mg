@@ -1,1 +1,0 @@
-DIRNAME=P514_ssx_phimphip

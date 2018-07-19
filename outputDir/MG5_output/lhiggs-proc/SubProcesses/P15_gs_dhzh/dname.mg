@@ -1,1 +1,0 @@
-DIRNAME=P15_gs_dhzh

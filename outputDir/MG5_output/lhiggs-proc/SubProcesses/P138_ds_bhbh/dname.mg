@@ -1,1 +1,0 @@
-DIRNAME=P138_ds_bhbh

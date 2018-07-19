@@ -1,1 +1,0 @@
-DIRNAME=P330_ssx_muhpmuhm

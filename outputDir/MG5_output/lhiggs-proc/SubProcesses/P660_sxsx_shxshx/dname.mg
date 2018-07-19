@@ -1,1 +1,0 @@
-DIRNAME=P660_sxsx_shxshx

@@ -1,1 +1,0 @@
-DIRNAME=P102_uux_shxsh

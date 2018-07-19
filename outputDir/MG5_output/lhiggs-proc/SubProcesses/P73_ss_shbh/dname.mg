@@ -1,1 +1,0 @@
-DIRNAME=P73_ss_shbh

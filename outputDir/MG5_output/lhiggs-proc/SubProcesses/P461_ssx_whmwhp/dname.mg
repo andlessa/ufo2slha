@@ -1,1 +1,0 @@
-DIRNAME=P461_ssx_whmwhp

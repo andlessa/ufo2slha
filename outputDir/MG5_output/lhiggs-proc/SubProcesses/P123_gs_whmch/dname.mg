@@ -1,1 +1,0 @@
-DIRNAME=P123_gs_whmch

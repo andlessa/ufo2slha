@@ -1,1 +1,0 @@
-DIRNAME=P85_gc_shwhp

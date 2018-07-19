@@ -1,1 +1,0 @@
-DIRNAME=P430_gsx_bhxah

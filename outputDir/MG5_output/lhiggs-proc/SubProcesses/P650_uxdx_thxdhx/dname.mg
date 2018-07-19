@@ -1,1 +1,0 @@
-DIRNAME=P650_uxdx_thxdhx

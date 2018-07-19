@@ -1,1 +1,0 @@
-DIRNAME=P105_cc_chch

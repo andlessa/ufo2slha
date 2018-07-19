@@ -1,1 +1,0 @@
-DIRNAME=P136_ssx_uhxch

@@ -1,1 +1,0 @@
-DIRNAME=P279_ssx_ehpehm

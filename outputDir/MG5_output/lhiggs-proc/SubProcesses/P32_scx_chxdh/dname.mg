@@ -1,1 +1,0 @@
-DIRNAME=P32_scx_chxdh

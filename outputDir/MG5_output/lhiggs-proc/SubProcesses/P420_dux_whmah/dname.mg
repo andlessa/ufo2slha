@@ -1,1 +1,0 @@
-DIRNAME=P420_dux_whmah

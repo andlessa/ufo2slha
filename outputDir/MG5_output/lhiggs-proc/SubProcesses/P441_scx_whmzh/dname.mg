@@ -1,1 +1,0 @@
-DIRNAME=P441_scx_whmzh

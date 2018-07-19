@@ -1,1 +1,0 @@
-DIRNAME=P68_usx_shxuh

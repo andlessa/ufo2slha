@@ -1,1 +1,0 @@
-DIRNAME=P195_uux_thxth

@@ -1,1 +1,0 @@
-DIRNAME=P74_cs_shth

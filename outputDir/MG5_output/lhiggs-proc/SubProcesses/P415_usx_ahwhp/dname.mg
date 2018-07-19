@@ -1,1 +1,0 @@
-DIRNAME=P415_usx_ahwhp
