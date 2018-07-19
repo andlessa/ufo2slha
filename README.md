@@ -25,8 +25,8 @@ obtained running:
 The parameter file specificies several options for computing the cross-sections and the decays.
 An example with comments can be found in [slha_parameters.ini](slha_parameters.ini).
 Note that generating SLHA files for several model parameters can be automatically
-done by defining the corresponding parameters using the [$loop{}](https://github.com/andlessa/ufo2slha/blob/4f9321b96c0fb6e56922edeeb58136274082bb27/slha_parameters.ini#L20) syntax. Also, dependence between the parameters
-are easily implemented using the parameter variable syntax [${section:option}](https://github.com/andlessa/ufo2slha/blob/4f9321b96c0fb6e56922edeeb58136274082bb27/slha_parameters.ini#L21) (see comments in [slha_parameters.ini](slha_parameters.ini)).
+done by defining the corresponding parameters using the [$loop{}](slha_parameters.ini#L20) syntax. Also, dependence between the parameters
+are easily implemented using the parameter variable syntax [${section:option}](slha_parameters.ini#L21) (see comments in [slha_parameters.ini](slha_parameters.ini)).
 
 Note that the automatic computation of cross-sections for all possible
 cross-section channels may demand a lot of CPU time. Therefore we recommend the user
