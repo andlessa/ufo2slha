@@ -135,15 +135,15 @@ class CreatorTest(unittest.TestCase):
         outFiles = ['testOutput/test_F1000_8TeV.slha','testOutput/test_F500_8TeV.slha',
                     'testOutput/test_F1000_13TeV.slha','testOutput/test_F500_13TeV.slha']
         
-        defaultFiles = ['lhiggs_F1000_13.slha',  'lhiggs_F500_13.slha']
-        
         for f in outFiles:
             self.assertTrue(os.path.isfile(f))
-            
         
-        for f in outFiles[2:]:
+        for f in outFiles:
+            old = os.path.basename(f).replace('.slha','_default.slha')
+            if not os.path.isfile(old):
+                continue
             new = pyslha.readSLHAFile(f)
-            old = pyslha.readSLHAFile(defaultFiles.pop(0))
+            old = pyslha.readSLHAFile(old)
             self.assertTrue(equalObjs(new, old, rtol=0.05))
 
             
