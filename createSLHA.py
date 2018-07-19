@@ -9,8 +9,9 @@
 # and generate a SLHA file containing the cross-sections
 
 #First tell the system where to find the modules:
+from __future__ import print_function
 import sys,os
-from configParserWrapper import ConfigParserExt
+from configParserWrapperNEW import ConfigParserExt
 import logging,shutil
 import subprocess
 import tempfile
@@ -20,9 +21,9 @@ import multiprocessing
 from collections import OrderedDict
 import gzip,imp
 
-FORMAT = '%(levelname)s in %(module)s.%(funcName)s() in %(lineno)s: %(message)s at %(asctime)s'
+FORMAT = '%(levelname)s in %(module)s.%(funcName)s(): %(message)s at %(asctime)s'
 logging.basicConfig(format=FORMAT,datefmt='%m/%d/%Y %I:%M:%S %p')
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ufo2slha")
 
 
 def getParticlesFromUFO(ufoFolder):
@@ -147,9 +148,9 @@ def getProcessCard(parser):
     processCardF = open(processCard,'w')
     processCardF.write('import model sm \n')
     processCardF.write('define p = g u c d s u~ c~ d~ s~ \n')
-    processCardF.write('import model %s \n' %os.path.abspath(parser.getvalue('options','modelFolder')))     
-    xsecPDGList = parser.getvalue('options','computeXsecsFor')
-    ufoFolder =  parser.getvalue('options','modelFolder')
+    processCardF.write('import model %s \n' %os.path.abspath(parser.get('options','modelFolder')))     
+    xsecPDGList = parser.get('options','computeXsecsFor')
+    ufoFolder =  parser.get('options','modelFolder')
     processes = defineProcesses(xsecPDGList, ufoFolder)
     for iproc,proc in enumerate(processes):
         processCardF.write('add process %s @ %i \n' %(proc,iproc))
@@ -205,7 +206,7 @@ def generateEvents(parser):
     """
     
     pars = parser.toDict(raw=False)["MadGraphPars"]
-    ncpu = max(1,parser.getvalue("MadGraphPars","ncores"))
+    ncpu = max(1,parser.get("MadGraphPars","ncores"))
     
     processFolder = pars['processFolder']
     outputFolder = pars['mg5out']
@@ -223,7 +224,6 @@ def generateEvents(parser):
         if 'paramcard' in pars and os.path.isfile(pars['paramcard']):
             shutil.copyfile(pars['paramcard'],os.path.join(outputFolder,'Cards/param_card.dat'))    
          
-            
     #Generate commands file:       
     commandsFile = tempfile.mkstemp(suffix='.txt', prefix='MG5_commands_', dir=outputFolder)
     os.close(commandsFile[0])
@@ -238,7 +238,7 @@ def generateEvents(parser):
 
 
     if parser.has_option('options','computeWidths'):
-        computeWidths = parser.getvalue('options','computeWidths')
+        computeWidths = parser.get('options','computeWidths')
         if computeWidths:
             if isinstance(computeWidths,str) or isinstance(computeWidths,unicode):
                 commandsFileF.write('compute_widths %s\n' %str(computeWidths))
@@ -281,7 +281,7 @@ def Run_MG5(parser):
     pars['mg5path'] = os.path.abspath(os.path.expanduser(pars['MG5path']))
     pars['processFolder'] = os.path.abspath(os.path.expanduser(pars['processFolder']))
     
-    #Checks        
+    #Checks
     if not os.path.isdir(pars['MG5path']):
         logger.error("MadGraph folder %s not found" %pars['MG5path'])
         return False
@@ -294,7 +294,7 @@ def Run_MG5(parser):
         logger.info('Process folder found. Will skip the process generation')
     else:
         generateProcesses(parser)      
-        
+    
     #Finally generate events and compute widths:
     generateEvents(parser)
     
@@ -314,7 +314,7 @@ def getSLHAFile(parser):
     pars = parser.toDict(raw=False)["slhaCreator"]
     
     #Use MadGraph banner reader:
-    madgraphPath = parser.getvalue('MadGraphPars','MG5path')
+    madgraphPath = parser.get('MadGraphPars','MG5path')
     sys.path.append(madgraphPath)
     from madgraph.various.banner import Banner
     
@@ -325,7 +325,7 @@ def getSLHAFile(parser):
     except:
         pass
     
-    lheFile = parser.getvalue('slhaCreator','inputFile')
+    lheFile = parser.get('slhaCreator','inputFile')
     
     if not os.path.isfile(lheFile):
         logger.error("File %s not found" %lheFile)
@@ -435,15 +435,15 @@ def runAll(parserDict):
     t0 = time.time() 
     
     parser = ConfigParserExt()
-    parser.read_dict(parserDict)  
+    parser.read_dict(parserDict)
     
     #Run MadGraph
-    if parser.getboolean('options','runMG'):
+    if parser.get('options','runMG'):
         Run_MG5(parser)
 
     #Create SLHA file
-    if parser.getboolean("options","runSlhaCreator"):
-        inputFile = parser.getvalue("slhaCreator","inputFile")
+    if parser.get("options","runSlhaCreator"):
+        inputFile = parser.get("slhaCreator","inputFile")
         if not os.path.isfile(inputFile):
             logger.error("Input file %s for SLHA creator not found" %inputFile)
         else:
@@ -454,10 +454,10 @@ def runAll(parserDict):
                 logger.debug("File %s created" %slhaFile)
                 
     #Clean output:
-    if parser.getboolean("options","cleanOutFolders"):
+    if parser.get("options","cleanOutFolders"):
         logger.info("Cleaning output")
-        if os.path.isdir(parser.getvalue("MadGraphPars","mg5out")):
-            shutil.rmtree(parser.getvalue("MadGraphPars","mg5out"))
+        if os.path.isdir(parser.get("MadGraphPars","mg5out")):
+            shutil.rmtree(parser.get("MadGraphPars","mg5out"))
           
     logger.info("Done in %3.2f min" %((time.time()-t0)/60.))
     now = datetime.datetime.now()
@@ -476,24 +476,14 @@ def main(parfile,verbose):
         sys.exit()
     logger.setLevel(level = levels[level])    
 
-    parser = ConfigParserExt( inline_comment_prefixes=( ';', ) )   
+    parser = ConfigParserExt()   
     ret = parser.read(parfile)
     if ret == []:
         logger.error( "No such file or directory: '%s'" % args.parfile)
         sys.exit()
             
-    
-    loopVars = []
-    varValues = []
-    for section in parser.sections():
-        if section == 'options':
-            continue
-        for option in parser.options(section):
-            v = parser.getvalue(section,option,raw=True)
-            if not isinstance(v,list):
-                v = [v]
-            loopVars.append(option)
-            varValues.append(v)
+    #Get a list of parsers (in case loops have been defined)    
+    parserList = parser.expandLoops()
 
     ncpus = parser.getint("options","ncpu")
     if ncpus  < 0:
@@ -503,15 +493,9 @@ def main(parfile,verbose):
     children = []
     #Loop over model parameters and submit jobs
     firstRun = True
-    for values in itertools.product(*varValues):
-        newParser = ConfigParserExt()
-        newParser.read_dict(parser.toDict())
-        for i,v in enumerate(values):        
-            for section in newParser.sections():
-                if loopVars[i] in newParser.options(section):        
-                    newParser.set(section,loopVars[i],str(v))
-        if firstRun and newParser.getboolean('options','runMG'):
-            if not os.path.isdir(newParser.getvalue('MadGraphPars','processFolder')):
+    for newParser in parserList:
+        if firstRun and newParser.get('options','runMG'):
+            if not os.path.isdir(newParser.get('MadGraphPars','processFolder')):
                 generateProcesses(newParser)
                 firstRun = False
         parserDict = newParser.toDict(raw=False) #Must convert to dictionary for pickling
@@ -532,7 +516,7 @@ if __name__ == "__main__":
             "Run MadGraph and Pythia in order to compute efficiencies for a given model." )
     ap.add_argument('-p', '--parfile', default='slha_parameters.ini',
             help='path to the parameters file. Parameters not defined in the parfile will be read from eff_parameters_default.ini')
-    ap.add_argument('-v', '--loglevel', default='error',
+    ap.add_argument('-v', '--verbose', default='error',
             help='verbose level (debug, info, warning or error). Default is error')
 
 
