@@ -26,7 +26,9 @@ The parameter file specificies several options for computing the cross-sections 
 An example with comments can be found in [slha_parameters.ini](slha_parameters.ini).
 Note that generating SLHA files for several model parameters can be automatically
 done by defining the corresponding parameters using the [$loop{}](slha_parameters.ini#L20) syntax. Also, dependence between the parameters
-are easily implemented using the parameter variable syntax [${section:option}](slha_parameters.ini#L21) (see comments in [slha_parameters.ini](slha_parameters.ini)).
+are easily implemented using the parameter variable syntax [${option}](slha_parameters.ini#L21)
+to reference options in the same section or [${section:option}](slha_parameters.ini#L24)
+to reference options in a different section (see comments in [slha_parameters.ini](slha_parameters.ini)).
 
 Note that the automatic computation of cross-sections for all possible
 cross-section channels may demand a lot of CPU time. Therefore we recommend the user
