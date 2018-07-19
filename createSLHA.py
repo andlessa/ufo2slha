@@ -11,7 +11,7 @@
 #First tell the system where to find the modules:
 from __future__ import print_function
 import sys,os
-from configParserWrapperNEW import ConfigParserExt
+from configParserWrapper import ConfigParserExt
 import logging,shutil
 import subprocess
 import tempfile

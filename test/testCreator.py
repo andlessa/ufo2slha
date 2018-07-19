@@ -10,7 +10,7 @@
 import sys,os,shutil
 sys.path.insert(0,"../")
 import unittest
-from configParserWrapperNEW import ConfigParserExt
+from configParserWrapper import ConfigParserExt
 from createSLHA import main
 import logging as logger
 import pyslha
