@@ -1,0 +1,83 @@
+# This file was automatically created by FeynRules 2.3.27
+# Mathematica version: 9.0 for Linux x86 (64-bit) (February 7, 2013)
+# Date: Fri 4 Aug 2017 17:43:06
+
+
+# 
+# This is the logfile for the model LHT
+
+# Authors: M. Tonini, M. de Vries
+# Model version: 0.4
+# Checking the Quantum numbers
+   * Electric charge defined.
+# Checking the Lagrangians
+   * All Lagrangians are ok.
+#
+# Particle definitions
+#
+
+   * No particles removed. All particles correspond to GenInt setup.
+
+
+
+# Compulsory PDG codes:
+   * Class SM leptons complete.
+   * Class SM neutrinos complete.
+   * Class SM quarks complete.
+   * Class SM gauge bosons complete.
+#
+# Parameter definitions
+#
+
+   * All parameters are ok.
+
+
+# Vertices
+   * Calling FeynmanRules for 1 Lagrangians.
+   * Number of classes vertices: 437
+   * Number of flavored vertices: 437
+   * Saved vertices in InterfaceRun[ 1 ].
+   * Checked QNumber conservation.
+      - Quantum number LeptonNumber conserved in all vertices.
+      - Quantum number Q conserved in all vertices.
+      - Quantum number Y conserved in all vertices.
+      - Quantum number Y1 conserved in all vertices.
+      - Quantum number Y2 conserved in all vertices.
+   * particles.py written.
+   * parameters.py written.
+#
+# Vertex definitions
+#
+
+   * 437 vertices written.
+   * vertices.py written.
+#
+# Lorentz structure definitions
+#
+
+   * 33 lorentz structures written.
+   * lorentz.py written.
+#
+# Coupling definitions
+#
+
+   * 278 couplings written.
+   * couplings.py written.
+#
+# Coupling order definitions
+#
+
+   * 0 couplings orders written.
+   * coupling_orders.py written.
+#
+# Decay definitions
+#
+
+   * 33 decays written.
+   * decay.py not written
+#
+# CTCoupling definitions
+#
+
+   * 0 CTcouplings written.
+   * CT_couplings.py written.
