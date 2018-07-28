@@ -1,1 +1,0 @@
-DIRNAME=P1_sdx_zhah

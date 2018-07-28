@@ -1,6 +1,0 @@
-P1_ddx_ahah
-P1_ssx_ahah
-P1_dsx_ahah
-P1_sdx_ahah
-P1_uux_ahah
-P1_ccx_ahah
