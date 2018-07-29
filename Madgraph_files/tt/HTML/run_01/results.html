@@ -1,0 +1,122 @@
+
+<head>
+    <title>Process results</title>
+    <script type="text/javascript" src="../sortable.js"></script>
+    <link rel=stylesheet href="../mgstyle.css" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+function UrlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  try{
+     http.send()
+     }
+  catch(err){
+   return 1==2;
+  }
+  return http.status!=404;
+}
+function check_link(url,alt, id){
+    var obj = document.getElementById(id);
+    if ( ! UrlExists(url)){
+        if ( ! UrlExists(alt)){
+         obj.href = alt;
+         return true;
+        }
+       obj.href = alt;
+       return false;
+    }
+    obj.href = url;
+    return 1==1;
+}
+</script>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 503.34 &#177 4.22 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_gg_ttx</td>
+    <td align=right><a id="#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_gg_ttx" href=#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_gg_ttx onClick="check_link('#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_gg_ttx','#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_gg_ttx','#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_gg_ttx')"> 439.8 </a> </td>
+    <td align=right>  3.77</td>
+    <td align=right>  14.026</td>
+    <td align=right>  754.0</td>
+    <td align=right>  0</td>
+</tr>
+
+<tr><td align=right>/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_qq_ttx</td>
+    <td align=right><a id="#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_qq_ttx" href=#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_qq_ttx onClick="check_link('#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_qq_ttx','#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_qq_ttx','#/home/recapp/Downloads/MG5_aMC_v2_6_2/tt/SubProcesses/P3_qq_ttx')"> 63.56 </a> </td>
+    <td align=right>  1.9</td>
+    <td align=right>  7.032</td>
+    <td align=right>  355.0</td>
+    <td align=right>  0</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+ <dl>  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 439.78 &#177 3.77 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="../../SubProcesses/P3_gg_ttx/G1/run_01_log.txt" href=../../SubProcesses/P3_gg_ttx/G1/run_01_log.txt onClick="check_link('../../SubProcesses/P3_gg_ttx/G1/run_01_log.txt','../../SubProcesses/P3_gg_ttx/G1/log.txt','../../SubProcesses/P3_gg_ttx/G1/run_01_log.txt')"> 46.58 </a> </td>
+    <td align=right>  0.497</td>
+    <td align=right>  7.016</td>
+    <td align=right>  372.0</td>
+    <td align=right>  7.99</td>
+</tr>
+
+<tr><td align=right>G2</td>
+    <td align=right><a id="../../SubProcesses/P3_gg_ttx/G2/run_01_log.txt" href=../../SubProcesses/P3_gg_ttx/G2/run_01_log.txt onClick="check_link('../../SubProcesses/P3_gg_ttx/G2/run_01_log.txt','../../SubProcesses/P3_gg_ttx/G2/log.txt','../../SubProcesses/P3_gg_ttx/G2/run_01_log.txt')"> 393.2 </a> </td>
+    <td align=right>  3.74</td>
+    <td align=right>  7.01</td>
+    <td align=right>  382.0</td>
+    <td align=right>  0.972</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+  
+
+ <BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>s= 63.559 &#177 1.9 (pb)</b><br><br>
+<table class="sortable" id='tablesort'>
+<tr><th>Graph</th>
+    <th> Cross-Section</th>
+    <th>Error</th>
+    <th>Events (K)</th>
+    <th>Unwgt</th>
+    <th>Luminosity</th>
+</tr>
+
+<tr><td align=right>G1</td>
+    <td align=right><a id="../../SubProcesses/P3_qq_ttx/G1/run_01_log.txt" href=../../SubProcesses/P3_qq_ttx/G1/run_01_log.txt onClick="check_link('../../SubProcesses/P3_qq_ttx/G1/run_01_log.txt','../../SubProcesses/P3_qq_ttx/G1/log.txt','../../SubProcesses/P3_qq_ttx/G1/run_01_log.txt')"> 63.56 </a> </td>
+    <td align=right>  1.9</td>
+    <td align=right>  7.032</td>
+    <td align=right>  355.0</td>
+    <td align=right>  5.59</td>
+</tr>
+
+</table>
+</center>
+<br><br><br>
+ </dl></body>
