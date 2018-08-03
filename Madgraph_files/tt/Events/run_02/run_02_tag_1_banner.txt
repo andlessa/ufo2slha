@@ -71,12 +71,11 @@ define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > t t~ @3
-output tt
+generate p p > t t~
+output tt2
 ]]>
 </MG5ProcCard>
 <MGProcCard>
-<![CDATA[
 #*********************************************************************
 #                        MadGraph/MadEvent                           *
 #                   http://madgraph.hep.uiuc.edu                     *
@@ -95,7 +94,7 @@ output tt
 # Process(es) requested : mg2 input                                  *
 #*********************************************************************
 # Begin PROCESS # This is TAG. Do not modify this line
-p p > t t~ @3           #Process
+p p > t t~           #Process
 # Be carefull the coupling are here in MG5 convention
           
 end_coup           # End the couplings input
@@ -114,7 +113,6 @@ sm
 # Begin MULTIPARTICLES # This is TAG. Do not modify this line
 
 # End  MULTIPARTICLES # This is TAG. Do not modify this line
-]]>
 </MGProcCard>
 <MGRunCard>
 <![CDATA[

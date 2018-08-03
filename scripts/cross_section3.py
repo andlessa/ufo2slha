@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import gzip
+import gzip,glob,os
 import shutil
 pids={'dh':8880001,'dh~':-8880001,'uh':8880002,'uh~':-8880002,'sh':8880003,'sh~':-8880003,'ch':8880004,'ch~':-8880004,
 'bh':8880005,'bh~':-8880005,'th':8880006,'th~':-8880006,'thodd':8880007,'thodd~':-8880007,'eh-':8880011,'eh+':-8880011,
@@ -41,7 +41,7 @@ process=['WHWH_sample1','ahah_sample1','zhzh_sample1',
 'shbchb_sample1','shbbhb_sample1','shbthb_sample1',
 'chbbhb_sample1','chbth_sample1','bhthb_sample1',
 'bhbth_sample1','shbh_sample1','shbbh_sample1',
-'shbbhb_sample1','phi0zh_sample1','phi0ah_sample1',
+'phi0zh_sample1','phi0ah_sample1',
 'phipzh_sample1','phipah_sample1','phipwhm_sample1',
 'phimzh_sample1','phimah_sample1','phimwhp_sample1',
 'phipszh_sample1','phipsah_sample1','phipswhp_sample1','phipswhm_sample1','thethe_sample1','phipsphips_sample1'] 
@@ -81,7 +81,7 @@ pids['bh~'],pids['uh~'],pids['ch~'],
 pids['sh~'],pids['bh~'],pids['th~'],
 pids['ch~'],pids['bh~'],pids['th~'],
 pids['bh~'],pids['ch~'],pids['th~'],
-pids['bh~'],pids['sh'],pids['bh~'],pids['sh~'],
+pids['bh~'],pids['sh'],pids['bh~'],
 pids['zh'],pids['ah'],pids['zh'],
 pids['ah'],pids['wh-'],pids['phim'],
 pids['phim'],pids['phim'],pids['zh'],
@@ -123,7 +123,7 @@ pids['uh~'],pids['th'],pids['dh~'],
 pids['dh~'],pids['dh~'],pids['dh~'],
 pids['sh~'],pids['sh~'],pids['sh~'],
 pids['ch~'],pids['th'],pids['bh'],
-pids['th'],pids['bh'],pids['sh~'],pids['sh~'],
+pids['th'],pids['bh'],pids['sh~'],
 pids['phi0'],pids['phi0'],pids['phip'],
 pids['phip'],pids['phip'],pids['zh'],
 pids['ah'],pids['wh+'],
@@ -141,6 +141,11 @@ file2=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/thethe_sample1/Cards
 nevents=0
 cross_section=0
 zerocs=0
+import os 
+ff=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/f.txt','r')
+f=ff.read().split("\n")[0]
+kk=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/k.txt','r')
+k=kk.read().split("\n")[0]
 file3=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/NewCS.dat','a')
 for a in range (0,len(process),1):
     #file=gzip.open('/home/recapp/Downloads/MG5_aMC_v2_6_2/'+str(process[a])+'/Events/run_01/unweighted_events.lhe.gz','r')
@@ -156,22 +161,9 @@ for a in range (0,len(process),1):
         if "#  Integrated weight (pb)  :   " in line:
             cross_section=((line.split(":")[1]).lstrip()).rstrip()
           #  print a
-        
-            file2.write("\n"+"XSECTION 1.3E+04 2212 2212 2 "+str(pid1[a])+" "+str(pid2[a])+" # "+str(nevents)+" events, [pb],   MG5 for LO "+"\n")
+            s = 1.3E+04
+            file2.write("\n"+"XSECTION" + str(s)+ "  2212 2212 2 "+str(pid1[a])+" "+str(pid2[a])+" # "+str(nevents)+" events, [pb],   MG5 for LO "+"\n")
             file2.write("     0 0 0 0 0 0 "+str(cross_section) +" # for Littlest Higgs Model with T Parity"+"\n")
-            file3.write(str(cross_section)+" "+str(a)+" "+process[a]+ " "+str(pid1[a])+" "+str(pid2[a])+"\n")
+            file3.write(str(cross_section)+" "+str(a)+" "+process[a]+ " "+str(pid1[a])+" "+str(pid2[a])+" "+str(f)+" "+str(k)+"\n")
         
-        else: 
-            continue
 
-import os 
-ff=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/f.txt','r')
-f=ff.read().split("\n")[0]
-kk=open('/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/k.txt','r')
-k=kk.read().split("\n")[0]
-source=os.listdir("/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/thethe_sample1/Cards/param_card.dat")
-destination="/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/slha/"
-destination=os.path.join(destination,'LHT%s%s.slha'%(f,k))
-shutil.copy(source,destination)
-for path in glob.glob("/home/recapp/Downloads/MG5_aMC_v2_6_2/scripts_2/*sample1/Events/*"):
-    shutil.rmtree(path)

@@ -35,5 +35,5 @@ define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > t t~ @3
-output tt
+generate p p > t t~
+output tt2

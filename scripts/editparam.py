@@ -21,7 +21,6 @@ oldphi0=0.0
 oldphip=0.0
 oldphic=0.0
 oldphiCc=0.0
-f=0.0
 kl=1.0
 kq=1.0
 k=1.0
@@ -33,16 +32,26 @@ newlep=0.0
 g=0.663663
 v=246.0
 gprime=0.355435
-mtop=172.5
-mhiggs=125.6
+#mtop=172.5
+mtop=173 #pdg pm 0.4 
+#mhiggs=125.6
+#pdg mhiggs=125.18
+mhiggs=125.18 # pdg pm 0.16
 # get scan input of k, f and set mass parameters
 f2=open('f.txt','r')
 k2=open('k.txt','r')
-f=float(f2.read())
-print f
-k=float(k2.read())
-print k
+f1=f2.read().split("\n")[0]
+#print f1
+k1=k2.read().split("\n")[0]
+#print k1
+f=float(f1)
+#print float(f)
+k=float(str(k1))
+#print k
+#f=1000
+#k=1
 #provide the input such that it just replaces the param card.dat 
+
 oldAH=(gprime*f*(1-(5.0*(v*1.0/f)**2)/8.0))/math.sqrt(5.0)
 oldWH = (g*f*(1-(1.0*(v*1.0/f)**2)/8.0))
 oldZH = (g*f*(1-(1.0*(v*1.0/f)**2)/8.0))

@@ -1,1 +1,1 @@
-../SubProcesses/P3_qq_ttx/leshouche.inc
+../SubProcesses/P1_qq_ttx/leshouche.inc
