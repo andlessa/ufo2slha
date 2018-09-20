@@ -6,7 +6,7 @@
 
 from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
 from math import *
-import re, itertools
+import re, itertools, tempfile
 import logging
 logger = logging.getLogger("ufo2slha")
 
