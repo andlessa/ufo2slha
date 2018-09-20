@@ -1,1 +1,0 @@
-DIRNAME=P453_gdx_shxzh

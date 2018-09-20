@@ -1,1 +1,0 @@
-DIRNAME=P661_uxdx_shxuhx

@@ -81,14 +81,16 @@ class CreatorTest(unittest.TestCase):
         parser = ConfigParserExt()
         parser.read(parFile)
         rawDict = {'MadGraphPars': {'processFolder': 'outputDir/MG5_output/proc-littleHiggs', 
-                                    'ncores': 1, 'runcard': 'inputCards/run_card.dat', 
+                                    'ncores': '1', 'runcard': 'inputCards/run_card.dat', 
                                     'paramcard': 'inputCards/param_card-littleHiggs.dat', 
                                     'mg5out': '"outputDir/MG5_output/MHd_%.1f_%iTeV" %(${MadGraphSet:MHd},int((${MadGraphSet:ebeam1}+${MadGraphSet:ebeam2})/1000.))', 'MG5path': 'MG5'}, 
-                                    'slhaCreator': {'inputFile': "${MadGraphPars:mg5out}/Events/run_01/unweighted_events.lhe.gz", 'slhaout': '"MHd_%.1f_%iTeV.slha" %(${MadGraphSet:MHd},int((${MadGraphSet:ebeam1}+${MadGraphSet:ebeam2})/1000.))'}, 
-                   'options': {'runSlhaCreator': True, 'runMG': True, 'computeXsecsFor': [8880001, 8880002], 
-                               'ncpu': -1, 'cleanOutFolders': True, 'modelFolder': 'UFO_LittleHiggs', 
+                                    'slhaCreator': {'inputFile': "${MadGraphPars:mg5out}/Events/run_01/unweighted_events.lhe.gz", 
+                                                    'slhaout': '"MHd_%.1f_%iTeV.slha" %(${MadGraphSet:MHd},int((${MadGraphSet:ebeam1}+${MadGraphSet:ebeam2})/1000.))',
+                                                    'outputFolder' : "'./'"}, 
+                   'options': {'runSlhaCreator': 'True', 'runMG': 'True', 'computeXsecsFor': '[8880001, 8880002]', 
+                               'ncpu': '-1', 'cleanOutFolders': 'True', 'modelFolder': 'UFO_LittleHiggs', 
                                'computeWidths': 'all --body_decay=2'}, 
-                   'MadGraphSet': {'MHd': 2000.0, 'ebeam2': '${ebeam1}', 'ebeam1': 4000,
+                   'MadGraphSet': {'MHd': '2000.0', 'ebeam2': '${ebeam1}', 'ebeam1': '4000',
                                    'MHu': '${MHd}/2.', 'MHdd': '${MHu}+50', 'MHe': '${options:computeXsecsFor}[0]',
                                    'Mhve': '${MadGraphSet:MHe}*sqrt(4.)'}}
         valDict = {'MadGraphPars': {'processFolder': 'outputDir/MG5_output/proc-littleHiggs', 
@@ -96,7 +98,7 @@ class CreatorTest(unittest.TestCase):
                                     'paramcard': 'inputCards/param_card-littleHiggs.dat', 
                                     'mg5out': 'outputDir/MG5_output/MHd_2000.0_8TeV', 'MG5path': 'MG5'}, 
                    'slhaCreator': {'inputFile': 'outputDir/MG5_output/MHd_2000.0_8TeV/Events/run_01/unweighted_events.lhe.gz', 
-                                   'slhaout': 'MHd_2000.0_8TeV.slha'}, 
+                                   'slhaout': 'MHd_2000.0_8TeV.slha', 'outputFolder' : './'}, 
                    'options': {'runSlhaCreator': True, 'runMG': True, 
                                'computeXsecsFor': [8880001, 8880002], 'ncpu': -1, 
                                'cleanOutFolders': True, 'modelFolder': 'UFO_LittleHiggs', 
@@ -107,37 +109,38 @@ class CreatorTest(unittest.TestCase):
 
         newDict = parser.toDict(raw=True)
         oldDict = rawDict 
+#         newDict = parser.toDict(raw=False)
+#         oldDict = valDict
  
         for s in newDict:
             for opt in newDict[s]:
-                if not isinstance(oldDict[s][opt],str):
-                    oldDict[s][opt] = str(oldDict[s][opt])
-                if not newDict[s][opt] == str(oldDict[s][opt]):
+                if newDict[s][opt] != oldDict[s][opt]:
                     print(s,opt)
                     print('\t',newDict[s][opt], oldDict[s][opt])
 #                     break
+
         self.assertEqual(parser.toDict(raw=True),rawDict)
         self.assertEqual(parser.toDict(raw=False),valDict)   
 
 
     def testSLHACreator(self):
- 
+  
         parFile = 'test_lhiggs.ini'
         if os.path.isdir('outputDir'):
             shutil.rmtree('outputDir')
         if os.path.isdir('testOutput'):
             shutil.rmtree('testOutput')
-             
+              
         out = main(parFile,'debug')
-        
+         
         self.assertTrue(len(out) == 4)
-        
+         
         outFiles = ['testOutput/test_F1000_8TeV.slha','testOutput/test_F500_8TeV.slha',
                     'testOutput/test_F1000_13TeV.slha','testOutput/test_F500_13TeV.slha']
-        
+         
         for f in outFiles:
             self.assertTrue(os.path.isfile(f))
-        
+         
         for f in outFiles:
             old = os.path.basename(f).replace('.slha','_default.slha')
             if not os.path.isfile(old):

@@ -1,1 +1,0 @@
-DIRNAME=P56_gs_whmuh

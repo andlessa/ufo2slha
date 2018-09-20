@@ -1,1 +1,0 @@
-DIRNAME=P252_ddx_thevenxtheven

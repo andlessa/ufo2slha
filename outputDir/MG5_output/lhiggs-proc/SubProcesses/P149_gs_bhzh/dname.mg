@@ -1,1 +1,0 @@
-DIRNAME=P149_gs_bhzh

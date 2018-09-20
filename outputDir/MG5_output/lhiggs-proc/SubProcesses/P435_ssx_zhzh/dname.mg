@@ -1,1 +1,0 @@
-DIRNAME=P435_ssx_zhzh

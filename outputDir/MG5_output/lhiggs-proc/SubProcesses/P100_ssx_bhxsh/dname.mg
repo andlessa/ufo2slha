@@ -1,1 +1,0 @@
-DIRNAME=P100_ssx_bhxsh

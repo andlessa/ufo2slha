@@ -1,1 +1,0 @@
-DIRNAME=P134_ccx_chxch

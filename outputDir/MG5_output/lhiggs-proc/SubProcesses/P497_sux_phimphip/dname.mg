@@ -1,1 +1,0 @@
-DIRNAME=P497_sux_phimphip

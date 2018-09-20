@@ -1,1 +1,0 @@
-DIRNAME=P132_dsx_thxch

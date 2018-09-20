@@ -1,1 +1,0 @@
-DIRNAME=P37_us_uhsh

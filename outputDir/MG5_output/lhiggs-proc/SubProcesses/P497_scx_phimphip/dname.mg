@@ -1,1 +1,0 @@
-DIRNAME=P497_scx_phimphip

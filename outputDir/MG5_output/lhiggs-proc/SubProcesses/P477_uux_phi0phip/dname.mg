@@ -1,1 +1,0 @@
-DIRNAME=P477_uux_phi0phip

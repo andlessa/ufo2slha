@@ -1,1 +1,0 @@
-DIRNAME=P377_ccx_tahptahm

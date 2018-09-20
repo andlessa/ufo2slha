@@ -1,1 +1,0 @@
-DIRNAME=P354_ssx_vmhxvmh

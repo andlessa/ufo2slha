@@ -1,1 +1,0 @@
-DIRNAME=P432_gsx_shxah

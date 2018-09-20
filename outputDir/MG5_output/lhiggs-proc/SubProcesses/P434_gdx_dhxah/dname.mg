@@ -1,1 +1,0 @@
-DIRNAME=P434_gdx_dhxah

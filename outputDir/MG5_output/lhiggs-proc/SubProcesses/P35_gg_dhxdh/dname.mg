@@ -1,1 +1,0 @@
-DIRNAME=P35_gg_dhxdh

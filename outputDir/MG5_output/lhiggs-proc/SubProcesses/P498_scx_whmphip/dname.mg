@@ -1,1 +1,0 @@
-DIRNAME=P498_scx_whmphip

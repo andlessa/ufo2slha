@@ -1,1 +1,0 @@
-DIRNAME=P437_ssx_zhphi0

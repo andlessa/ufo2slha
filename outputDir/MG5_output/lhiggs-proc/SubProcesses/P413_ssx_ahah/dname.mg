@@ -1,1 +1,0 @@
-DIRNAME=P413_ssx_ahah

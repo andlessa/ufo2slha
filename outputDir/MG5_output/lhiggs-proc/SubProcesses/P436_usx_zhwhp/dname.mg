@@ -1,1 +1,0 @@
-DIRNAME=P436_usx_zhwhp

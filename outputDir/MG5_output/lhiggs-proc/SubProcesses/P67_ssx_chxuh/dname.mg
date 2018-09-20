@@ -1,1 +1,0 @@
-DIRNAME=P67_ssx_chxuh

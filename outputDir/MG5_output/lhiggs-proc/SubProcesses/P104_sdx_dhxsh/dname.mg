@@ -1,1 +1,0 @@
-DIRNAME=P104_sdx_dhxsh

@@ -1,1 +1,0 @@
-DIRNAME=P186_gs_whmth

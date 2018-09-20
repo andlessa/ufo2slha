@@ -1,1 +1,0 @@
-DIRNAME=P399_ssx_vthxvth

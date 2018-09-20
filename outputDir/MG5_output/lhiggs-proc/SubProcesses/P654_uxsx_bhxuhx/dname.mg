@@ -1,1 +1,0 @@
-DIRNAME=P654_uxsx_bhxuhx

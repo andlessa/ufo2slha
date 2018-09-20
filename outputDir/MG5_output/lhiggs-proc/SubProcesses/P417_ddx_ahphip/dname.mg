@@ -1,1 +1,0 @@
-DIRNAME=P417_ddx_ahphip

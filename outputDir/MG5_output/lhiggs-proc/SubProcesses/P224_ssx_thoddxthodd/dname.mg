@@ -1,1 +1,0 @@
-DIRNAME=P224_ssx_thoddxthodd

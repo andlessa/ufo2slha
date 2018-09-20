@@ -1,1 +1,0 @@
-DIRNAME=P65_dsx_thxuh

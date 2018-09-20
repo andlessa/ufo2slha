@@ -1,1 +1,0 @@
-DIRNAME=P103_dux_uhxsh

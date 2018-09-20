@@ -1,1 +1,0 @@
-DIRNAME=P451_gsx_bhxzh

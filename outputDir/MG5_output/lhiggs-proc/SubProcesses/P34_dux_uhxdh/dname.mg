@@ -1,1 +1,0 @@
-DIRNAME=P34_dux_uhxdh

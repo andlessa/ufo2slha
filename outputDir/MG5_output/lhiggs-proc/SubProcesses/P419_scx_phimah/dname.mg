@@ -1,1 +1,0 @@
-DIRNAME=P419_scx_phimah

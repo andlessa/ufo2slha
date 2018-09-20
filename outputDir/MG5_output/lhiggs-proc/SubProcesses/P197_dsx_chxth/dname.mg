@@ -1,1 +1,0 @@
-DIRNAME=P197_dsx_chxth

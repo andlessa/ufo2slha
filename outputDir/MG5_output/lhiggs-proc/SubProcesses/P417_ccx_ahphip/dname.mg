@@ -1,1 +1,0 @@
-DIRNAME=P417_ccx_ahphip

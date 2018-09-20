@@ -1,1 +1,0 @@
-DIRNAME=P69_ccx_uhxuh

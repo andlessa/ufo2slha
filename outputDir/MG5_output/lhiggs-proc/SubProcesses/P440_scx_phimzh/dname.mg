@@ -1,1 +1,0 @@
-DIRNAME=P440_scx_phimzh

@@ -1,1 +1,0 @@
-DIRNAME=P169_ssx_dhxbh
