@@ -6,7 +6,8 @@
 
 from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
 from math import *
-import re, itertools, tempfile
+import re, itertools, tempfile, random
+import numpy
 import logging
 logger = logging.getLogger("ufo2slha")
 
@@ -124,7 +125,7 @@ class ConfigParserExt(RawConfigParser):
         for section in self.sections():
             for option in self.options(section):
                 ret = self.get(section,option,raw=True)
-                varSectLoop = re.findall(r'\$loop\{(\S*)\}',ret)
+                varSectLoop = re.findall(r'\$loop\{(.*)\}',ret)
                 if not varSectLoop:
                     continue
                 if len(varSectLoop) > 1:
@@ -134,7 +135,7 @@ class ConfigParserExt(RawConfigParser):
                     varList = eval(loopStr)
                 except:
                     raise ParsingError("Could not evaluate loop %s" %loopStr)
-                if not isinstance(varList,list):
+                if not isinstance(varList,(list,numpy.ndarray,tuple)):
                     raise ParsingError("Loop expression %s did not generate a list" %loopStr)
                 loopVars.append((section,option))
                 varValues.append(varList)
