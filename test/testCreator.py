@@ -124,23 +124,23 @@ class CreatorTest(unittest.TestCase):
 
 
     def testSLHACreator(self):
-  
+   
         parFile = 'test_lhiggs.ini'
         if os.path.isdir('outputDir'):
             shutil.rmtree('outputDir')
         if os.path.isdir('testOutput'):
             shutil.rmtree('testOutput')
-              
+               
         out = main(parFile,'debug')
-         
+          
         self.assertTrue(len(out) == 4)
-         
+          
         outFiles = ['testOutput/test_F1000_8TeV.slha','testOutput/test_F500_8TeV.slha',
                     'testOutput/test_F1000_13TeV.slha','testOutput/test_F500_13TeV.slha']
-         
+          
         for f in outFiles:
             self.assertTrue(os.path.isfile(f))
-         
+          
         for f in outFiles:
             old = os.path.basename(f).replace('.slha','_default.slha')
             if not os.path.isfile(old):
