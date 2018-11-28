@@ -19,7 +19,7 @@ import time,datetime
 import itertools
 import multiprocessing
 from collections import OrderedDict
-import gzip,imp
+import gzip
 
 FORMAT = '%(levelname)s in %(module)s.%(funcName)s(): %(message)s at %(asctime)s'
 logging.basicConfig(format=FORMAT,datefmt='%m/%d/%Y %I:%M:%S %p')
@@ -37,8 +37,8 @@ def getParticlesFromUFO(ufoFolder):
     """    
         
     sys.path.append(ufoFolder)
-    mod = imp.load_source('particles',os.path.join(ufoFolder,'particles.py'))
-    imp.load_source('particles',ufoFolder)
+    from importlib import import_module
+    mod = import_module('particles', package=ufoFolder)
     allParticles = []
     for objStr in dir(mod):
         obj = getattr(mod,objStr)
