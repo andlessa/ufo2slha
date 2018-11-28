@@ -20,8 +20,6 @@ fi
     cp ./madgraphFixes/mg5_configuration.txt MG5/input/;
     cp ./madgraphFixes/diagram_generation.py MG5/madgraph/core/;
 
-    fi
-
 fi
 
 
