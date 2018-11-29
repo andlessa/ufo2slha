@@ -4,12 +4,17 @@
 #in the parameters. The expressions should be of the type ${expr}.
 #References for other parameters in the parser should be in the format section:parameter.
 
-from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
+
 from math import *
 import re, itertools, tempfile, random
 import numpy
 import logging
 logger = logging.getLogger("ufo2slha")
+
+try:
+    from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
+except:
+    from configparser import RawConfigParser,InterpolationDepthError,ParsingError
 
 
 class ConfigParserExt(RawConfigParser):
