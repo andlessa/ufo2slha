@@ -28,7 +28,7 @@ Note that generating SLHA files for several model parameters can be automaticall
 done by defining the corresponding parameters using the [$loop{}](slha_parameters.ini#L20) syntax. Also, dependence between the parameters
 are easily implemented using the parameter variable syntax [${option}](slha_parameters.ini#L21)
 to reference options in the same section or [${section:option}](slha_parameters.ini#L24)
-to reference options in a different section (see comments in [slha_parameters.ini](slha_parameters.ini)).
+to reference options in a different section (see comments in [slha_parameters.ini](slha_parameters.ini) and a more complex example in [lhiggs_parameters.ini](lhiggs_parameters.ini)).
 
 Note that the automatic computation of cross-sections for all possible
 cross-section channels may demand a lot of CPU time. Therefore we recommend the user

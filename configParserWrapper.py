@@ -4,12 +4,17 @@
 #in the parameters. The expressions should be of the type ${expr}.
 #References for other parameters in the parser should be in the format section:parameter.
 
-from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
+
 from math import *
 import re, itertools, tempfile, random
 import numpy
 import logging
 logger = logging.getLogger("ufo2slha")
+
+try:
+    from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
+except:
+    from configparser import RawConfigParser,InterpolationDepthError,ParsingError
 
 
 class ConfigParserExt(RawConfigParser):
@@ -55,11 +60,13 @@ class ConfigParserExt(RawConfigParser):
                     self.set(section,option,str(value))
 
     
-    def get(self, section, option, raw=False):
+    def get(self, section, option, raw=False, current_depth=0):
         
         valueRaw = RawConfigParser.get(self, section, option)
         if raw:            
             return valueRaw
+
+        self.cur_depth = current_depth
 
         #Find all instances of ${(alphanumeric characters):(alphanumeric characters)}
         ret = valueRaw
@@ -77,8 +84,8 @@ class ConfigParserExt(RawConfigParser):
                 #Try to get the value for the corresponding section/option
                 #(avoid infinite loops with interpolation depth:            
                 self.cur_depth = self.cur_depth + 1 
-                if self.cur_depth < 1000000:
-                    sub = self.get(v_section, v_option)
+                if self.cur_depth < self.MAX_INTERPOLATION_DEPTH:
+                    sub = self.get(v_section, v_option, current_depth=self.cur_depth)
                     #Replace all instances of (section):(option)
                     ret = re.sub(r'\$\{%s:%s\}' %(v_section, v_option), str(sub),ret)
                 else:
@@ -91,7 +98,7 @@ class ConfigParserExt(RawConfigParser):
             if re.findall(r'\$\{%s\}'%v_option,ret):
                 self.cur_depth = self.cur_depth + 1 
                 if self.cur_depth < self.MAX_INTERPOLATION_DEPTH:
-                    sub = self.get(section, v_option)
+                    sub = self.get(section, v_option, current_depth=self.cur_depth)
                     #Replaces the correct instances:
                     ret = re.sub(r'\$\{%s\}' %v_option, str(sub),ret)
                 else:
