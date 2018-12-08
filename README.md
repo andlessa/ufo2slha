@@ -1,5 +1,5 @@
 # ufo2slha
-This repository holds the code for producing a SLHA file from an UFO input model.
+This repository holds the code for producing a SLHA file from the Little(st) Higgs UFO input model.
 
 ## Basic Installation ##
 
