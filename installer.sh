@@ -22,6 +22,18 @@ fi
 
 fi
 
+feynrules="feynrules-current.tar.gz"
+URL=http://feynrules.irmp.ucl.ac.be/downloads/$feynrules
+echo -n "Install FeynRules (y/n)? "
+read answer
+if echo "$answer" | grep -iq "^y" ;then
+	mkdir FeynRules;
+	echo "[installer] getting FeynRules"; wget $URL 2>/dev/null || curl -O $URL; tar -zxf $feynrules -C FeynRules --strip-components 1;
+	cd $homeDIR
+	rm $feynrules;
+
+fi
+
 
 
 echo "DONE"

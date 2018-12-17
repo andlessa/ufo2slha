@@ -576,9 +576,9 @@ M$ClassesDescription = {
     SelfConjugate   -> True,  
     Mass            -> {MAH, 150},
     Width           -> 0,
-    ParticleName    -> "AH",
+    ParticleName    -> "~AH",
     PDG             -> 8880022, 
-    PropagatorLabel -> "AH", 
+    PropagatorLabel -> "~AH", 
     PropagatorType  -> W, 
     PropagatorArrow -> None,
     FullName        -> "Heavy Photon"
@@ -588,9 +588,9 @@ M$ClassesDescription = {
     SelfConjugate   -> True,
     Mass            -> {MZH, 400},
     Width           -> {WZH, 5},
-    ParticleName    -> "ZH",
+    ParticleName    -> "~ZH",
     PDG             -> 8880023, 
-    PropagatorLabel -> "ZH",
+    PropagatorLabel -> "~ZH",
     PropagatorType  -> Sine,
     PropagatorArrow -> None,
     FullName        -> "Heavy Z"
@@ -600,11 +600,11 @@ M$ClassesDescription = {
     SelfConjugate    -> False,
     Mass             -> {MWH, 400},
     Width            -> {WWH, 5},
-    ParticleName     -> "WH+",
-    AntiParticleName -> "WH-",
+    ParticleName     -> "~WH+",
+    AntiParticleName -> "~WH-",
     QuantumNumbers   -> {Q -> 1},
     PDG              -> 8880024, 
-    PropagatorLabel  -> "WH",
+    PropagatorLabel  -> "~WH",
     PropagatorType   -> Sine,
     PropagatorArrow  -> Forward,
     FullName         -> "Heavy W"
@@ -678,7 +678,7 @@ M$ClassesDescription = {
     PropagatorArrow  -> Forward,
     PDG              -> {12,14,16},
     ParticleName     -> {"ve","vm","vt"},
-    AntiParticleName -> {"ve~","vm~","vt~"},
+    AntiParticleName -> {"Ve","Vm","Vt"},
     FullName         -> {"Electron-neutrino", "Mu-neutrino", "Tau-neutrino"}
     },
   F[2] == {
@@ -694,8 +694,8 @@ M$ClassesDescription = {
     PropagatorType   -> Straight,
     PropagatorArrow  -> Forward,
     PDG              -> {11, 13, 15},
-    ParticleName     -> {"e-", "mu-", "ta-"},
-    AntiParticleName -> {"e+", "mu+", "ta+"},
+    ParticleName     -> {"e", "mu", "ta"},
+    AntiParticleName -> {"E", "Mu", "Ta"},
     FullName         -> {"Electron", "Muon", "Tau"} 
     },
   F[3] == {
@@ -712,7 +712,7 @@ M$ClassesDescription = {
     PropagatorArrow  -> Forward,
     PDG              -> {2, 4, 6}, 
     ParticleName     -> {"u",  "c",  "t" },
-    AntiParticleName -> {"u~", "c~", "t~"},
+    AntiParticleName -> {"U", "C", "T"},
     FullName         -> {"u-quark", "c-quark", "t-quark"}
     },
   F[4] == {
@@ -729,7 +729,7 @@ M$ClassesDescription = {
     PropagatorArrow  -> Forward,
     PDG              -> {1,3,5},
     ParticleName     -> {"d",  "s",  "b" },
-    AntiParticleName -> {"d~", "s~", "b~"},
+    AntiParticleName -> {"D", "S", "B"},
     FullName         -> {"d-quark", "s-quark", "b-quark"}
     },
 
@@ -795,11 +795,11 @@ M$ClassesDescription = {
     Width            -> {WHv, {WHve,5}, {WHvm,5}, {WHvt,5}},
     QuantumNumbers   -> {LeptonNumber -> 1},
     PDG              -> {8880012, 8880014, 8880016},
-    PropagatorLabel  -> {"vH", "veH", "vmH", "vtH"} ,
+    PropagatorLabel  -> {"~vH", "~veH", "~vmH", "~vtH"} ,
     PropagatorType   -> S,
     PropagatorArrow  -> Forward,
-    ParticleName     -> {"veH","vmH","vtH"},
-    AntiParticleName -> {"veH~","vmH~","vtH~"},
+    ParticleName     -> {"~veH","~vmH","~vtH"},
+    AntiParticleName -> {"~VeH","~VmH","~VtH"},
     FullName         -> {"Heavy Electron-neutrino", "Heavy Mu-neutrino", "Heavy Tau-neutrino"}
     },
   F[11] == {
@@ -812,11 +812,11 @@ M$ClassesDescription = {
     Width            -> {WHl, {WHe,5}, {WHmu,5}, {WHta,5}},
     QuantumNumbers   -> {Q -> -1, LeptonNumber -> 1},
     PDG              -> {8880011, 8880013, 8880015}, 
-    PropagatorLabel  -> {"lH", "eH", "muH", "taH"},
+    PropagatorLabel  -> {"~lH", "~eH", "~muH", "~taH"},
     PropagatorType   -> Straight,
     PropagatorArrow  -> Forward,
-    ParticleName     -> {"eH-", "muH-", "taH-"},
-    AntiParticleName -> {"eH+", "muH+", "taH+"},
+    ParticleName     -> {"~eH", "~muH", "~taH"},
+    AntiParticleName -> {"~EH", "~MuH", "~TaH"},
     FullName         -> {"Heavy Electron", "Heavy Muon", "Heavy Tau"} 
     },
   F[12] == {
@@ -829,11 +829,11 @@ M$ClassesDescription = {
     Width            -> {WHuq, {WHu,5}, {WHc,5}, {WHt,5}},
     QuantumNumbers   -> {Q -> 2/3},
     PDG              -> {8880002, 8880004, 8880006},
-    PropagatorLabel  -> {"uqH", "uH", "cH", "tH"},
+    PropagatorLabel  -> {"~uqH", "~uH", "~cH", "~tH"},
     PropagatorType   -> Straight,
     PropagatorArrow  -> Forward, 
-    ParticleName     -> {"uH",  "cH",  "tH" },
-    AntiParticleName -> {"uH~", "cH~", "tH~"},
+    ParticleName     -> {"~uH",  "~cH",  "~tH" },
+    AntiParticleName -> {"~UH", "~CH", "~TH"},
     FullName         -> {"Heavy u-quark", "Heavy c-quark", "Heavy t-quark"}
     },
   F[13] == {
@@ -846,11 +846,11 @@ M$ClassesDescription = {
     Width            -> {WHdq, {WHd,5}, {WHs,5}, {WHb,5}},
     QuantumNumbers   -> {Q -> -1/3},
     PDG              -> {8880001, 8880003, 8880005},
-    PropagatorLabel  -> {"dqH", "dH", "sH", "bH"},
+    PropagatorLabel  -> {"~dqH", "~dH", "~sH", "~bH"},
     PropagatorType   -> Straight, 
     PropagatorArrow  -> Forward,
-    ParticleName     -> {"dH",  "sH",  "bH" },
-    AntiParticleName -> {"dH~", "sH~", "bH~"},
+    ParticleName     -> {"~dH",  "~sH",  "~bH" },
+    AntiParticleName -> {"~DH", "~SH", "~BH"},
     FullName         -> {"Heavy d-quark", "Heavy s-quark", "Heavy b-quark"}
     },
   F[14] == {
@@ -861,11 +861,11 @@ M$ClassesDescription = {
     Width            -> {WHTodd, 5},
     QuantumNumbers   -> {Q -> 2/3},
     PDG              -> 8880007,
-    PropagatorLabel  -> {"THodd"},
+    PropagatorLabel  -> {"~thodd"},
     PropagatorType   -> Straight,
     PropagatorArrow  -> Forward, 
-    ParticleName     -> {"THodd"},
-    AntiParticleName -> {"THodd~"},
+    ParticleName     -> {"~tHodd"},
+    AntiParticleName -> {"~THodd"},
     FullName         -> {"Heavy T-odd t-quark"}
     },
   F[15] == {
@@ -876,11 +876,11 @@ M$ClassesDescription = {
     Width            -> {WHTeven, 5},
     QuantumNumbers   -> {Q -> 2/3},
     PDG              -> 8880008,
-    PropagatorLabel  -> {"THeven"},
+    PropagatorLabel  -> {"tHeven"},
     PropagatorType   -> Straight,
     PropagatorArrow  -> Forward, 
-    ParticleName     -> {"THeven"},
-    AntiParticleName -> {"THeven~"},
+    ParticleName     -> {"tHeven"},
+    AntiParticleName -> {"THeven"},
     FullName         -> {"Heavy T-even t-quark"}
     },
 
@@ -903,10 +903,10 @@ M$ClassesDescription = {
     Mass            -> {MPhi0, 450},
     Width           -> {WPhi0, 5},
     PDG             -> 8880025,
-    PropagatorLabel -> "phi0",
+    PropagatorLabel -> "~phi0",
     PropagatorType  -> D,
     PropagatorArrow -> None,
-    ParticleName    -> "phi0",
+    ParticleName    -> "~phi0",
     FullName        -> "Scalar triplet phi0"
     },
   S[3] == {
@@ -915,10 +915,10 @@ M$ClassesDescription = {
     Mass            -> {MPhiP, 450},
     Width           -> {WPhiP, 5},
     PDG             -> 8880026,
-    PropagatorLabel -> "phiP",
+    PropagatorLabel -> "~phiP",
     PropagatorType  -> D,
     PropagatorArrow -> None,
-    ParticleName    -> "phiP",
+    ParticleName    -> "~phiP",
     FullName        -> "Scalar triplet phiP"
     },
   S[4] == {
@@ -928,11 +928,11 @@ M$ClassesDescription = {
     Width            -> {WPhiC, 5},
     QuantumNumbers   -> {Q -> 1},
     PDG              -> 8880027,
-    PropagatorLabel  -> "phi+",
+    PropagatorLabel  -> "~phi+",
     PropagatorType   -> D,
     PropagatorArrow  -> Forward,
-    ParticleName     -> "phi+",
-    AntiParticleName -> "phi-",
+    ParticleName     -> "~phi+",
+    AntiParticleName -> "~phi-",
     FullName         -> "Scalar triplet phi+"
     },
   S[5] == {
@@ -942,11 +942,11 @@ M$ClassesDescription = {
     Width            -> {WPhiCC, 5},
     QuantumNumbers   -> {Q -> 2},
     PDG              -> 8880028,
-    PropagatorLabel  -> "phi++",
+    PropagatorLabel  -> "~phi++",
     PropagatorType   -> D,
     PropagatorArrow  -> Forward,
-    ParticleName     -> "phi++",
-    AntiParticleName -> "phi--",
+    ParticleName     -> "~phi++",
+    AntiParticleName -> "~phi--",
     FullName         -> "Scalar triplet phi++"
     },
   (* Higgs doublet *)

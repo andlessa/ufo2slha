@@ -6,6 +6,7 @@ This repository holds the code for producing a SLHA file from the Little(st) Hig
 The following external codes are required:
 
   * [MadGraph](https://launchpad.net/mg5amcnlo)
+  * [FeynRules](http://feynrules.irmp.ucl.ac.be/)
 
 The script installer.sh will try to fetch the appropriate tarballs and install them.
 A few patches will be automatically applied to the MadGraph installation in order to allow for the automatized computation
