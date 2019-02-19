@@ -1,0 +1,7 @@
+*~
+*.pyc
+*.pyo
+*.pkl
+MG5
+.project
+.pydevproject
