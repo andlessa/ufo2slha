@@ -517,13 +517,19 @@ def main(parfile,verbose):
     if ret == []:
         logger.error( "No such file or directory: '%s'" % args.parfile)
         sys.exit()
-            
-    #Get a list of parsers (in case loops have been defined)    
-    parserList = parser.expandLoops()
+     
+    if not parser.has_option('MadGraphSet', 'parameterFile'):       
+        #Get a list of parsers (in case loops have been defined)    
+        parserList = parser.expandLoops()
+    else:
+        parserList = parser.getParametersFromFile(parser.get('MadGraphSet','parameterFile'))
+
 
     ncpus = parser.getint("options","ncpu")
     if ncpus  < 0:
         ncpus =  multiprocessing.cpu_count()
+
+    logger.info('Creating %i files with %i workers' %(len(parserList),ncpus))
 
     pool = multiprocessing.Pool(processes=ncpus)
     children = []

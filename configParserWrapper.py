@@ -8,6 +8,7 @@
 from math import *
 import re, itertools, tempfile, random
 import numpy
+import os
 import logging
 logger = logging.getLogger("ufo2slha")
 
@@ -161,6 +162,40 @@ class ConfigParserExt(RawConfigParser):
             parserList.append(newParser)
             
         return parserList
+    
+    
+    def getParametersFromFile(self,parFile):
+        """
+        Reads the file defined in MadGraphSet:parametersFile
+        and for each line in the file generate a new parser with the
+        parameter values given by the line.
+        The file must have a header which defines the names of the parameters
+        in each column and these should match the names used by MadGraph.
+        The delimiter is assumed to be commas (",").
+        
+        :param parFile: Parameter file, where the header (first line) must contain the parameter names for each column.
+        
+        :return: List of parsers with the parameters set to the respective value defined by the file
+        """
+        
+        if not os.path.isfile(parFile):
+            logger.error('File %s not found' %parFile)
+            return [self]
+        
+        data = numpy.genfromtxt(parFile,delimiter=',',names=True)
+        
+        varNames = list(data.dtype.names)
+        logger.info(" Reading variables:  " + ", ".join(varNames) + " from file %s" %parFile)
+        parserList = []        
+        for pt in data:
+            newParser = ConfigParserExt()
+            newParser.read_dict(self.toDict(raw=True))
+            for i,var in enumerate(varNames):
+                newParser.set('MadGraphSet',var,str(pt[i]))
+            parserList.append(newParser)
+            
+        return parserList
+    
 
 if __name__ == "__main__":
     
