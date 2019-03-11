@@ -45,9 +45,14 @@ class ParameterSpace(object):
             n = int(np.ceil(float(maxPoints)**(1./self.dim)))
             self.n_pieces = dict([[key,n] for key in self.parameters])
             logger.info("Limiting the number of partitions in each dimension to %i" %n)
-            
+        
+        #If the parameter is fixed do not partition its axis.
+        for par in self.parameters:
+            if self.minParameters[par] == self.maxParameters[par]:
+                self.n_pieces[par] = 1
+        #Make sure all dimensions get at least one point
         for par,val in self.n_pieces.items():
-            self.n_pieces[par] = max(1,val) #Make sure all dimensions get at least one point
+            self.n_pieces[par] = max(1,val) 
             
         #Store steps in each dimension:
         self.steps = dict([[par,(self.maxParameters[par]-self.minParameters[par])/self.n_pieces[par]] 
