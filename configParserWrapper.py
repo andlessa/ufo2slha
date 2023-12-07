@@ -6,15 +6,12 @@
 
 
 from math import *
-import re, itertools, tempfile, random
+import re, itertools
 import numpy
 import logging
 logger = logging.getLogger("ufo2slha")
 
-try:
-    from ConfigParser import RawConfigParser,InterpolationDepthError,ParsingError
-except:
-    from configparser import RawConfigParser,InterpolationDepthError,ParsingError
+from configparser import RawConfigParser,InterpolationDepthError,ParsingError
 
 
 class ConfigParserExt(RawConfigParser):
@@ -22,6 +19,8 @@ class ConfigParserExt(RawConfigParser):
     
     def __init__(self,*args,**kargs):
         RawConfigParser.__init__(self,*args,**kargs)
+        self._inline_comment_prefixes = (';','#')
+        self._comment_prefixes = (';','#')
         self.cur_depth = 0
         self.MAX_INTERPOLATION_DEPTH=100
         self.optionxform=str    #Preserve string cases    
@@ -60,9 +59,9 @@ class ConfigParserExt(RawConfigParser):
                     self.set(section,option,str(value))
 
     
-    def get(self, section, option, raw=False, current_depth=0):
+    def get(self, section, option, raw=False, current_depth=0,vars=None):
         
-        valueRaw = RawConfigParser.get(self, section, option)
+        valueRaw = RawConfigParser.get(self, section, option,vars=vars)
         if raw:            
             return valueRaw
 
