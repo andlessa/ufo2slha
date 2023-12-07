@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #Uses an input SLHA file to compute cross-sections using MadGraph and the UFO model files
 #The calculation goes through the following steps
@@ -9,7 +9,6 @@
 # and generate a SLHA file containing the cross-sections
 
 #First tell the system where to find the modules:
-from __future__ import print_function
 import sys,os
 from configParserWrapper import ConfigParserExt
 import logging,shutil
