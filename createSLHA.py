@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #Uses an input SLHA file to compute cross-sections using MadGraph and the UFO model files
 #The calculation goes through the following steps
@@ -9,7 +9,6 @@
 # and generate a SLHA file containing the cross-sections
 
 #First tell the system where to find the modules:
-from __future__ import print_function
 import sys,os
 from configParserWrapper import ConfigParserExt
 import logging,shutil
@@ -112,32 +111,35 @@ def getProcessCard(parser):
     pars = parser.toDict(raw=False)["MadGraphPars"]
     
     if 'proccard'in pars:
-        processCard = pars['proccard']     
-        if os.path.isfile(processCard):
-            logger.debug('Process card found.')
-            #Make sure the output folder defined in processCard matches the one defined in processFolder:
-            pcF = open(processCard,'r')
-            cardLines = pcF.readlines()
+        processCard = pars['proccard']
+    else:
+        processCard = None
+
+    if processCard and os.path.isfile(processCard):
+        logger.debug('Process card %s found.' %processCard)
+        #Make sure the output folder defined in processCard matches the one defined in processFolder:
+        pcF = open(processCard,'r')
+        cardLines = pcF.readlines()
+        pcF.close()
+        outFolder = [l for l in cardLines if 'output' in l and 'output' == l.strip()[:6]]            
+        if outFolder:
+            outFolder = outFolder[0]
+            outFolder = outFolder.split('output')[1].replace('\n','').strip()
+            outFolder = os.path.abspath(outFolder)
+            if outFolder != os.path.abspath(pars['processFolder'].strip()):
+                logger.debug("Folder defined in process card does not match the one defined in processFolder. Will use the latter.")
+            pcF = open(processCard,'w')
+            for l in cardLines:
+                if (not 'output' in l) or (not 'output' == l.strip()[:6]):
+                    pcF.write(l)
+                else:
+                    pcF.write('output %s \n' %os.path.abspath(pars['processFolder']))
             pcF.close()
-            outFolder = [l for l in cardLines if 'output' in l and 'output' == l.strip()[:6]]            
-            if outFolder:
-                outFolder = outFolder[0]
-                outFolder = outFolder.split('output')[1].replace('\n','').strip()
-                outFolder = os.path.abspath(outFolder)
-                if outFolder != os.path.abspath(pars['processFolder'].strip()):
-                    logger.debug("Folder defined in process card does not match the one defined in processFolder. Will use the latter.")
-                pcF = open(processCard,'w')
-                for l in cardLines:
-                    if (not 'output' in l) or (not 'output' == l.strip()[:6]):
-                        pcF.write(l)
-                    else:
-                        pcF.write('output %s \n' %os.path.abspath(pars['processFolder']))
-                pcF.close()
-            if not outFolder:
-                pcF = open(processCard,'a')
-                pcF.write('output %s \n' %os.path.abspath(pars['processFolder']))
-                
-            return processCard
+        if not outFolder:
+            pcF = open(processCard,'a')
+            pcF.write('output %s \n' %os.path.abspath(pars['processFolder']))
+            
+        return processCard
         
     else:
         processCard = tempfile.mkstemp(suffix='.dat', prefix='processCard_', 
@@ -145,6 +147,7 @@ def getProcessCard(parser):
         os.close(processCard[0])
         processCard = processCard[1]
         
+    logger.debug("Creating new process card %s" %processCard)
     processCardF = open(processCard,'w')
     processCardF.write('import model sm \n')
     processCardF.write('define p = g u c d s u~ c~ d~ s~ \n')
@@ -358,9 +361,9 @@ def getSLHAFile(parser,inputLHE):
         return False
     
     if lheFile[-3:] == '.gz':
-        f = gzip.open(lheFile, 'r')
+        f = gzip.open(lheFile, 'rt')
     else: 
-        f = open(lheFile,'r')
+        f = open(lheFile,'rt')
     banner = Banner()
     banner.read_banner(f)
     f.close()
